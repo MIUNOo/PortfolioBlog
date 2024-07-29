@@ -1,5 +1,6 @@
 +++
 title = 'About'
+type = 'about'
 date = 2024-07-29T15:04:47+08:00
 draft = false
 +++
