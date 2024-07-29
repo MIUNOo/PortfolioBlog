@@ -139,6 +139,13 @@ weight = 1
 url = "https://github.com/MIUNOo/"
 
 
+[[params.social]]
+name = "itch.io"
+icon = "fa-brands fa-itch-io fa-2x"
+weight = 1
+url = "https://miunovo.itch.io/"
+
+
 # [[params.social]]
 # name = "RSS"
 # icon = "fa-solid fa-rss fa-2x"
