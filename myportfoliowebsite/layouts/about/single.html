@@ -2,7 +2,7 @@
   {{ .Title }} · {{ .Site.Title }}
 {{ end }}
 {{ define "content" }}
-
+<div class="content_center">
   <section class="container page">
   <article>
     <header>
@@ -17,4 +17,5 @@
   </article>
 </section>
   {{ partial "posts/math.html" . }}
+</div>
 {{ end }}
