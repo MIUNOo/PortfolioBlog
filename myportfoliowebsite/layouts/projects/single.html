@@ -1,0 +1,28 @@
+{{ define "title" }}
+  {{ .Title }} · {{ .Site.Title }}
+{{ end }}
+{{ define "content" }}
+<div class="content">
+  <section class="container page">
+  <article>
+    <header>
+      <h1 class="title">
+        <a class="title-link" href="{{ .Permalink | safeURL }}">
+          {{ .Title }}
+        </a>
+      </h1>
+    </header>
+    {{ .Content }}
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/3336_mtPs6E?si=N1DlIwqazlYr95JI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </article>
+  </section>
+  {{ partial "posts/math.html" . }}
+</div>
+
+
+
+
+
+
+
+{{ end }}

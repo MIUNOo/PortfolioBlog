@@ -6,14 +6,21 @@
     <description>Recent content on MiunoDev</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 29 Jul 2024 15:04:47 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 11 Sep 2024 12:01:57 -0700</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>About</title>
+      <title>Projects</title>
+      <link>http://localhost:1313/projects/</link>
+      <pubDate>Wed, 11 Sep 2024 12:01:57 -0700</pubDate>
+      <guid>http://localhost:1313/projects/</guid>
+      <description>Working on this page, anyone know how to include youtube embedd to md file?</description>
+    </item>
+    <item>
+      <title>About Me</title>
       <link>http://localhost:1313/about/</link>
       <pubDate>Mon, 29 Jul 2024 15:04:47 +0800</pubDate>
       <guid>http://localhost:1313/about/</guid>
-      <description>Hello, my name is Chenjie Zhang. I am a new post-graduate student at the University of Southern California, starting in the fall of 2024, majoring in Computer Science - Game Development. I have experience with Unity and Unreal Engine, and I have built several projects using these platforms.&#xA;When participating in game jams, I like to use the code name “MIUNO”. This name, pronounced /muno/, is inspired by the code name MONA from Persona 5.</description>
+      <description>Hello, my name is Chenjie Zhang. I&amp;rsquo;m a graduate student at the University of Southern California, starting in the fall of 2024, majoring in Computer Science - Game Development. I have experience with Unity and Unreal Engine, and I have built several projects using these game engines.&#xA;When participating in game jams, I like to use the code name “MIUNO”. This name, pronounced [ˈmjuːno], is inspired by the code name MONA from Persona 5.</description>
     </item>
   </channel>
 </rss>
