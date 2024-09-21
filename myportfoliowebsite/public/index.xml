@@ -6,14 +6,21 @@
     <description>Recent content on MiunoDev</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Sep 2024 12:01:57 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 21 Sep 2024 04:03:12 -0700</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Contact</title>
+      <link>http://localhost:1313/contact/</link>
+      <pubDate>Sat, 21 Sep 2024 04:03:12 -0700</pubDate>
+      <guid>http://localhost:1313/contact/</guid>
+      <description>Email: sea2s4e@gmail.com&#xA;WeChat: wHUIBULIU</description>
+    </item>
     <item>
       <title>Projects</title>
       <link>http://localhost:1313/projects/</link>
       <pubDate>Wed, 11 Sep 2024 12:01:57 -0700</pubDate>
       <guid>http://localhost:1313/projects/</guid>
-      <description>Escape Room Game (FYP)&#xD;Link to heading&#xD;This is an escape room game build with UE5, alonged with 4 puzzles consist with 9 pickable objects and 4 interaction mechanisms. A key-lock linkage system is embedded in. The player can use a reveal glasses to reveal hidden clues. It also features a level editor that allows player to customize a level with all the objects in the game and save/load the level.</description>
+      <description>&amp;mdash;-Featured Projects&amp;mdash;-&#xD;Link to heading&#xD;Escape Room Game (FYP)&#xD;Link to heading&#xD;This is an escape room game build with UE5, alonged with 4 puzzles consist with 9 pickable objects and 4 interaction mechanisms. A key-lock linkage system is embedded in the game through event dispatcher. The player can use a reveal glasses to reveal hidden clues. It also features a level editor that allows player to customize a level with all the objects in the game and save/load the level.</description>
     </item>
     <item>
       <title>About Me</title>
