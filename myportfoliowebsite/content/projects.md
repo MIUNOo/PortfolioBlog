@@ -17,12 +17,12 @@ This is an escape room game build with UE5, alonged with 4 puzzles consist with 
 
 
 {{< gallery
-  "/GameTitle.png"
-  "/GameScene_0.png"
-  "/GameScene_1.png"
-  "/GameScene_2.png" 
-  "/UMLMechanism_0.png" 
-  "/UMLMechanism_1.png"
+  "/PECR/GameTitle.png"
+  "/PECR/GameScene_0.png"
+  "/PECR/GameScene_1.png"
+  "/PECR/GameScene_2.png" 
+  "/PECR/UMLMechanism_0.png" 
+  "/PECR/UMLMechanism_1.png"
 >}}
 
 
@@ -30,7 +30,7 @@ This is an escape room game build with UE5, alonged with 4 puzzles consist with 
 
 # [Fire All The Thing](https://miunovo.itch.io/fire-all-the-thing)
 
-This is a top-down shooting game build with Unity for 1-Bit Game Jam. All the game functional structure was implemented, such as player movement and items. Object pool was used in generating the flame path for  character. Moreover, it is in WebGL build for online playing. ~~(its a very old project, just putting here to show my Unity ability)~~
+This is a top-down 2D shooting game build with Unity for 1-Bit Game Jam. All the game functional structure was implemented, such as player movement and items. Object pool was used in generating the flame path for  character. Moreover, it is in WebGL build for online playing. ~~(its a very old project, just putting here to show my Unity ability)~~
 
 
 
