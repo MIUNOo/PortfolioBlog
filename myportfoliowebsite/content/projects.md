@@ -36,6 +36,16 @@ This is a top-down 2D shooting game build with Unity for 1-Bit Game Jam. All the
 
 ## ----Recent Projects----
 
+# CLUE (Game system anlysis)
+
+A system analysis graph for classic party board game, Clue. Including a graph of the formal element of the game and a flowchart graph for the game loop.
+
+{{< gallery 
+	"/CSAC/System_Analysis_Frame_1.jpg"
+	"/CSAC/System_Analysis_Frame_2.jpg"
+>}}
+
+
 # Infineight Toybox
 
 
