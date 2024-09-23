@@ -138,7 +138,7 @@
   }
 </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
   // Apply zoom to gallery images
@@ -146,17 +146,17 @@
   
   images.forEach(img => {
     const highResSrc = img.src.replace("500w", "1500w"); // Replace with high-resolution version
-    mediumZoom(img, {
+    mediumZoom('.gallery-item img', {
       margin: 0, 
-      scrollOffset: 40,
-      container: null, 
-      template: null,
+      // scrollOffset: 40,
+      // container: null, 
+      // template: null,
       background: 'rgba(0, 0, 0, 0.8)',
       onOpen: () => img.setAttribute('src', highResSrc), // Load high-res when zoomed
       onClose: () => img.setAttribute('src', img.src)    // Revert to original after zoom
     });
   });
 </script>
-
+ -->
 
 

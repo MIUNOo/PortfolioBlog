@@ -26,13 +26,17 @@ This is an escape room game build with UE5, alonged with 4 puzzles consist with 
 >}}
 
 
+
 {{< youtube 3336_mtPs6E >}}
 
 # [Fire All The Thing](https://miunovo.itch.io/fire-all-the-thing)
 
 This is a top-down 2D shooting game build with Unity for 1-Bit Game Jam. All the game functional structure was implemented, such as player movement and items. Object pool was used in generating the flame path for  character. Moreover, it is in WebGL build for online playing. ~~(its a very old project, just putting here to show my Unity ability)~~
 
-
+{{< gallery
+	"/PFAT/FAT_0.gif"
+	"/PFAT/FAT_1.gif"
+>}}
 
 ## ----Recent Projects----
 
@@ -41,8 +45,8 @@ This is a top-down 2D shooting game build with Unity for 1-Bit Game Jam. All the
 A system analysis graph for classic party board game, Clue. Including a graph of the formal element of the game and a flowchart graph for the game loop.
 
 {{< gallery 
-	"/CSAC/System_Analysis_Frame_1.jpg"
-	"/CSAC/System_Analysis_Frame_2.jpg"
+	"/CSAC/System_Analysis_Frame_1.png"
+	"/CSAC/System_Analysis_Frame_2.png"
 >}}
 
 
