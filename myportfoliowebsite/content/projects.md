@@ -9,7 +9,7 @@ date = 2024-09-11T12:01:57-07:00
 Guess I found it! use shortcode! -->
 ## ----Featured Projects----
 
-# [Escape Room Game (FYP)](https://miunovo.itch.io/escaperoomgame)
+# [__Escape Room Game (FYP)__](https://miunovo.itch.io/escaperoomgame)
 
 This is an escape room game build with UE5, alonged with 4 puzzles consist with 9 pickable objects and 4 interaction mechanisms. A key-lock linkage system is embedded in the game through event dispatcher. The player can use a reveal glasses to reveal hidden clues. It also features a level editor that allows player to customize a level with all the objects in the game and save/load the level.
 <!-- https://youtu.be/3336_mtPs6E -->
@@ -29,14 +29,23 @@ This is an escape room game build with UE5, alonged with 4 puzzles consist with 
 
 {{< youtube 3336_mtPs6E >}}
 
-# [Fire All The Thing](https://miunovo.itch.io/fire-all-the-thing)
+# [__Fire All The Thing__](https://miunovo.itch.io/fire-all-the-thing)
 
-This is a top-down 2D shooting game build with Unity for 1-Bit Game Jam. All the game functional structure was implemented, such as player movement and items. Object pool was used in generating the flame path for  character. Moreover, it is in WebGL build for online playing. ~~(its a very old project, just putting here to show my Unity ability)~~
+This is a top-down 2D shooting game build with Unity for 1-Bit Game Jam. All the game functional structure was implemented, such as player movement and items. Object pool was used in generating the flame path for  character. Moreover, it is in WebGL build for online playing. ~~(its a very old project, just putting here to show my Unity ability)~~. 
+
+Ranked 151 overall in 550 submissions.
 
 {{< gallery
 	"/PFAT/FAT_0.gif"
 	"/PFAT/FAT_1.gif"
 >}}
+
+{{< gallery
+	"/PFAT/FAT_2.gif"
+	"/PFAT/FAT_3.gif"
+	"/PFAT/Result.png"
+>}}
+
 
 ## ----Recent Projects----
 
@@ -50,6 +59,6 @@ A system analysis graph for classic party board game, Clue. Including a graph of
 >}}
 
 
-# Infineight Toybox
+<!-- # Infineight Toybox -->
 
 
