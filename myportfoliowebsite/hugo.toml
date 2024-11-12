@@ -145,6 +145,12 @@ icon = "fa-brands fa-itch-io fa-2x"
 weight = 1
 url = "https://miunovo.itch.io/"
 
+[[params.social]]
+name = "Linkedin"
+icon = "fa-brands fa-linkedin fa-2x"
+weight = 1
+url = "https://www.linkedin.com/in/chenjie-zhang-701847251/"
+
 
 # [[params.social]]
 # name = "RSS"
@@ -172,7 +178,7 @@ url = "projects/"
 [[languages.en.menu.main]]
 name = "Resume"
 weight = 3
-url = "Resume/Resume_Chenjie_Zhang_Vmock.pdf"
+url = "Resume_Chenjie_Zhang_Vmock.pdf"
 
 [[languages.en.menu.main]]
 name = "Contact me"

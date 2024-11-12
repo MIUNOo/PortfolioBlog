@@ -11,7 +11,7 @@ Guess I found it! use shortcode! -->
 
 # [__Escape Room Game (FYP)__](https://miunovo.itch.io/escaperoomgame)
 
-This is an escape room game build with UE5, alonged with 4 puzzles consist with 9 pickable objects and 4 interaction mechanisms. A key-lock linkage system is embedded in the game through event dispatcher. The player can use a reveal glasses to reveal hidden clues. It also features a level editor that allows player to customize a level with all the objects in the game and save/load the level.
+This is an escape room game build with **UE5**, alonged with 4 puzzles consist with 9 pickable objects and 4 interaction mechanisms. A **key-lock linkage system** is embedded in the game through **event dispatcher**. The player can use a reveal glasses to reveal hidden clues. It also features a **level editor** that allows player to customize a level with all the objects in the game and **save/load** the level.
 <!-- https://youtu.be/3336_mtPs6E -->
 <!-- {{<figure src="/UMLMechanism_0.png">}}  -->
 
@@ -31,7 +31,7 @@ This is an escape room game build with UE5, alonged with 4 puzzles consist with 
 
 # [__Fire All The Thing__](https://miunovo.itch.io/fire-all-the-thing)
 
-This is a top-down 2D shooting game build with Unity for 1-Bit Game Jam. All the game functional structure was implemented, such as player movement and items. Object pool was used in generating the flame path for  character. Moreover, it is in WebGL build for online playing. ~~(its a very old project, just putting here to show my Unity ability)~~. 
+This is a top-down 2D shooting game build with **Unity** for **1-Bit Game Jam**. All the game functional structure was implemented, such as player movement and items. **Object pool** was used in generating the flame path for  character. Moreover, it is in **WebGL** build for online playing. ~~(its a very old project, just putting here to show my Unity skill)~~. 
 
 Ranked 151 overall in 550 submissions.
 
@@ -46,6 +46,11 @@ Ranked 151 overall in 550 submissions.
 	"/PFAT/Result.png"
 >}}
 
+# __DataViz 0.2__
+
+This is a data visualization software, I implemented **incremental** requirements for this school project with **Qt** and **C++**, ensuring continuous improvement and adaptability. Specifically, the histogram plot and data expression calculation. I also added more convenient **user interaction** for plotting and curve customization. Moreover, I optimized the data import and plotting speed with **Multi-Thread**. The efficiency reached a gain of **75%**. 
+{{<figure src="/PDV0/Improvement.png">}}
+{{< youtube cbaRGa0UTos >}}
 
 ## ----Recent Projects----
 
