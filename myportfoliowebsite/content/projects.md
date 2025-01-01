@@ -46,6 +46,23 @@ Ranked 151 overall in 550 submissions.
 	"/PFAT/Result.png"
 >}}
 
+
+# [__XPBD Cloth Simulation__](https://github.com/Yanggoo/X-PBD-Cloth-Simulation)
+
+A **real-time** cloth simulation project using **Extended Position-Based Dynamics (XPBD)**.    
+- Modular framework with rendering, GUI, and scene management.  
+- **CPU** and **GPU** solvers accelerated with **CUDA**.  
+- Realistic constraints: stretching, bending, shrinking, and self-collision.  
+- **Performance optimization** with spatial partitioning and dynamic interactions.
+
+{{< gallery
+	"/XPBDCS/PBDCS1.gif"
+	"/XPBDCS/PBDCS2.gif"
+	"/XPBDCS/PBDCS3.gif"
+>}}
+
+
+
 # __DataViz 0.2__
 
 This is a data visualization software, I implemented **incremental** requirements for this school project with **Qt** and **C++**, ensuring continuous improvement and adaptability. Specifically, the histogram plot and data expression calculation. I also added more convenient **user interaction** for plotting and curve customization. Moreover, I optimized the data import and plotting speed with **Multi-Thread**. The efficiency reached a gain of **75%**. 

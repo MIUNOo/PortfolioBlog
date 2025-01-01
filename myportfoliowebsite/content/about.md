@@ -19,4 +19,4 @@ My experience in game development originated from my childhood. (OLD STORY) Like
 
 I believe game development and software development could be very customized in the near future. One can develop for their own needs, and the learning process won't be hard and long. This means people's ideas could become reality and ready for use in a short time. I would like to spread my ideas to the world and also build a world that helps others to share their thoughts.
 
-Now, with a long-term goal in mind, I have finally acquired some skills in game development. I'm currently learning computer graphics and how to develop a small game engine using C++.
+Now, with a long-term goal in mind, I have finally acquired some skills in game development. I'm currently learning game engines using C++ and working on small game projects.
