@@ -63,13 +63,25 @@ A **real-time** cloth simulation project using **Extended Position-Based Dynamic
 
 
 
+## ----Recent Projects----
+
+
+# [__Personal Game Library__](https://fuchsia-oak-fc0.notion.site/Games-1426bb49dd0f8183b8dbd367fc49c427?pvs=4)
+
+A personal game record library recording games I played and my reviews, build with Notion.
+<!-- {{< emd_page "https://www.notioniframe.com/notion/1qqqca5py9d" >}} -->
+
+{{< gallery 
+	"/GDB/GDB1.png"
+	"/GDB/GDB2.png"
+>}}
+
+
 # __DataViz 0.2__
 
 This is a data visualization software, I implemented **incremental** requirements for this school project with **Qt** and **C++**, ensuring continuous improvement and adaptability. Specifically, the histogram plot and data expression calculation. I also added more convenient **user interaction** for plotting and curve customization. Moreover, I optimized the data import and plotting speed with **Multi-Thread**. The efficiency reached a gain of **75%**. 
 {{<figure src="/PDV0/Improvement.png">}}
 {{< youtube cbaRGa0UTos >}}
-
-## ----Recent Projects----
 
 # CLUE (Game system anlysis)
 
