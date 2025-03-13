@@ -27,7 +27,23 @@ This is an escape room game build with **UE5**, alonged with 4 puzzles consist w
 
 
 
-{{< youtube 3336_mtPs6E >}}
+<!-- {{< youtube 3336_mtPs6E >}}
+
+{{< youtube IIZawvk6qgU >}} -->
+
+<!-- {{</* raw */>}}
+<div class="video-container">
+  <div class="video-item">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/3336_mtPs6E?si=aB5LXVzkdRxVtBzT" frameborder="0" allowfullscreen></iframe>
+  </div>
+  <div class="video-item">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/IIZawvk6qgU?si=nPizT8c3lUH3rPZf" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+{{</* /raw */>}} -->
+
+
+{{< youtube-dual "3336_mtPs6E" "IIZawvk6qgU" >}}
 
 # [__Fire All The Thing__](https://miunovo.itch.io/fire-all-the-thing)
 
