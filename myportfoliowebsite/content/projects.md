@@ -25,25 +25,24 @@ This is an escape room game build with **UE5**, alonged with 4 puzzles consist w
   "/PECR/UMLMechanism_1.png"
 >}}
 
-
-
-<!-- {{< youtube 3336_mtPs6E >}}
-
-{{< youtube IIZawvk6qgU >}} -->
-
-<!-- {{</* raw */>}}
-<div class="video-container">
-  <div class="video-item">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/3336_mtPs6E?si=aB5LXVzkdRxVtBzT" frameborder="0" allowfullscreen></iframe>
-  </div>
-  <div class="video-item">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/IIZawvk6qgU?si=nPizT8c3lUH3rPZf" frameborder="0" allowfullscreen></iframe>
-  </div>
-</div>
-{{</* /raw */>}} -->
-
-
 {{< youtube-dual "3336_mtPs6E" "IIZawvk6qgU" >}}
+
+# [__ScreeIn__](https://youtu.be/UAOb8lt4Oho?si=MK7wN5q8WA11RW-I)
+
+This in-development psychological horror game is built with **UE5**, focusing on **atmospheric environment design** and **immersive mood setting**. Utilizing **UE Sequencer**, the game seamlessly blends cinematic storytelling with gameplay to enhance player immersion.
+
+{{< gallery
+  "/PSI/PSI_0.png"
+  "/PSI/PSI_1.png"
+  "/PSI/PSI_7.png"
+  "/PSI/PSI_2.png"
+  "/PSI/PSI_3.png" 
+  "/PSI/PSI_4.png" 
+  "/PSI/PSI_5.png"
+  "/PSI/PSI_6.png"
+>}}
+
+{{< youtube UAOb8lt4Oho>}}
 
 # [__Fire All The Thing__](https://miunovo.itch.io/fire-all-the-thing)
 
@@ -92,12 +91,28 @@ A personal game record library recording games I played and my reviews, build wi
 	"/GDB/GDB2.png"
 >}}
 
+# [__BU88LE (mini-game)__](https://brianjiang.itch.io/bu88le)
+
+An extendable **mini-game** built with **Unity** for **Globle Game Jam 2025**, where players click the screen to blow bubbles and align them with the background image. Pressing the space button captures a photo, generating a similarity percentage. **Signed Distance Fields (SDF)** were used to enable smooth bubble merging. ~~We ate too much brunch during jam..~~
+
+{{< gallery 
+	"/PB8/PB8_0.png"
+	"/PB8/PB8_1.png"
+  "/PB8/PB8_2.png"
+>}}
 
 # __DataViz 0.2__
 
 This is a data visualization software, I implemented **incremental** requirements for this school project with **Qt** and **C++**, ensuring continuous improvement and adaptability. Specifically, the histogram plot and data expression calculation. I also added more convenient **user interaction** for plotting and curve customization. Moreover, I optimized the data import and plotting speed with **Multi-Thread**. The efficiency reached a gain of **75%**. 
 {{<figure src="/PDV0/Improvement.png">}}
 {{< youtube cbaRGa0UTos >}}
+
+
+# NobOdy (Pitch Design Doc)
+
+A thought of boss rush + simple mechanism + 2D->3D. [link](/DNBD/NobOdy.pdf)
+
+
 
 # CLUE (Game system anlysis)
 
