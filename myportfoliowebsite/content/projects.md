@@ -27,7 +27,7 @@ This is an escape room game build with **UE5**, alonged with 4 puzzles consist w
 
 {{< youtube-dual "3336_mtPs6E" "IIZawvk6qgU" >}}
 
-# [__ScreeIn__](https://youtu.be/UAOb8lt4Oho?si=MK7wN5q8WA11RW-I)
+# [__ScreeIn__](https://youtu.be/EAn3e9ZSjdM)
 
 This in-development psychological horror game is built with **UE5**, focusing on **atmospheric environment design** and **immersive mood setting**. Utilizing **UE Sequencer**, the game seamlessly blends cinematic storytelling with gameplay to enhance player immersion.
 
@@ -42,7 +42,7 @@ This in-development psychological horror game is built with **UE5**, focusing on
   "/PSI/PSI_6.png"
 >}}
 
-{{< youtube UAOb8lt4Oho>}}
+{{< youtube EAn3e9ZSjdM>}}
 
 # [__Fire All The Thing__](https://miunovo.itch.io/fire-all-the-thing)
 

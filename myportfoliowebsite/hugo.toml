@@ -3,7 +3,8 @@ title = "MiunoDev"
 theme = "hugo-coder"
 languageCode = "en"
 defaultContentLanguage = "en"
-paginate = 6
+[pagination]
+  pagerSize = 6
 enableEmoji = true
 
 [services]

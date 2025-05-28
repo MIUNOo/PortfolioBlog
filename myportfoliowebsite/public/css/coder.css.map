@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "coder.css",
-	"sourceRoot": "F:/git_project/PortfolioBlog/myportfoliowebsite",
+	"sourceRoot": "D:/CPP_Projects/PortfolioBlog/myportfoliowebsite",
 	"sources": [
 		"themes/hugo-coder/assets/scss/coder.scss",
 		"themes/hugo-coder/assets/scss/css/normalize.css",
