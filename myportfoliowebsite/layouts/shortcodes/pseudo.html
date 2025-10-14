@@ -1,0 +1,16 @@
+{{- $src := .Inner | htmlEscape -}}
+
+{{/* Comments: lines starting with # */}}
+{{- $src = replaceRE `(?m)^(\s*#.*)$` `<span class="com">$1</span>` $src -}}
+
+{{/* Keywords (case-insensitive) */}}
+{{- $kw := `(?i)\b(FUNCTION|PROCEDURE|RETURN|IF|ELSE|ELIF|THEN|FOR|EACH|WHILE|DO|BREAK|CONTINUE|AND|OR|NOT|TRUE|FALSE|NULL)\b` -}}
+{{- $src = replaceRE $kw `<span class="kw">$0</span>` $src -}}
+
+{{/* Numbers */}}
+{{- $src = replaceRE `\b\d+(\.\d+)?\b` `<span class="num">$0</span>` $src -}}
+
+{{/* Operators / arrows */}}
+{{- $src = replaceRE `←|:=` `<span class="op">$0</span>` $src -}}
+
+<pre class="pseudo"><code>{{ $src | safeHTML }}</code></pre>

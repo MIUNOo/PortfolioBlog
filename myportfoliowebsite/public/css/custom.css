@@ -49,3 +49,108 @@
     padding-bottom: 56.25%; /* 保持 16:9 宽高比 */
   }
 }
+
+pre.pseudo {
+  background: #333232;
+  color: #ddd;
+  padding: 1rem 1.25rem;
+  overflow: auto;
+  border-radius: 8px;
+  font-family: "JetBrains Mono", Consolas, Menlo, monospace;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+pre.pseudo .kw   { color: #7aa2f7; font-weight: 600; }  /* keywords */
+pre.pseudo .num  { color: #e0af68; }                    /* numbers   */
+pre.pseudo .op   { color: #bb9af7; }                    /* operators */
+pre.pseudo .com  { color: #5c6370; font-style: italic;} /* comments  */
+
+.container {
+  margin: 1rem auto;                /* remove auto centering */
+  max-width: 125rem;          /* span full screen */
+  width: 100%;
+  padding-left: 2rem;       /* optional */
+  padding-right: 2rem;      /* optional */
+}
+
+
+
+/* Edge activator: when mouse touches left edge, open panel */
+#edge-hover {
+  position: fixed;
+  top: 0; left: 0;
+  width: 24px; height: 100vh;
+  z-index: 9000;
+}
+
+#slide-toc {
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  width: 280px;
+  transform: translateX(-240px); /* collapsed shows a 40px tab */
+  transition: transform .22s ease;
+  z-index: 9001;
+  background: var(--toc-bg, rgba(24,24,24,.96));
+  color: var(--toc-fg, #ddd);
+  border-right: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 0 24px rgba(0,0,0,.35);
+  backdrop-filter: blur(6px);
+}
+#slide-toc:hover,
+#edge-hover:hover + #slide-toc {
+  transform: translateX(0); /* expand */
+}
+
+#slide-toc .toc-inner {
+  height: 100%;
+  overflow: auto;
+  padding: 16px 14px 24px 18px;
+}
+
+/* Reset Hugo TOC list and make it clean */
+#slide-toc .toc-inner > nav > ul {
+  list-style: none;
+  margin: 0; padding: 0;
+}
+#slide-toc li { margin: 6px 0; }
+#slide-toc a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 6px 8px;
+  border-radius: 6px;
+  line-height: 1.25;
+  font-size: 0.95rem;
+  opacity: .9;
+}
+#slide-toc a:hover { background: rgba(255,255,255,.06); opacity: 1; }
+
+/* Indentation for nested headings */
+#slide-toc ul ul a { padding-left: 20px; font-size: .92rem; opacity: .85; }
+#slide-toc ul ul ul a { padding-left: 32px; font-size: .9rem; opacity: .8; }
+
+/* Active (scrollspy) */
+#slide-toc a.active {
+  background: rgba(0,209,178,.18);
+  border-left: 3px solid #00d1b2;
+  padding-left: 5px; /* compensate for border */
+  opacity: 1;
+}
+
+/* Tooltip for preview */
+.toc-tooltip {
+  position: fixed;
+  max-width: 360px;
+  background: #111;
+  color: #ddd;
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 8px 10px;
+  font-size: .88rem;
+  line-height: 1.25;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 8px 30px rgba(0,0,0,.35);
+  display: none;
+}

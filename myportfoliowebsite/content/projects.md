@@ -27,7 +27,7 @@ This is an escape room game build with **UE5**, alonged with 4 puzzles consist w
 
 {{< youtube-dual "3336_mtPs6E" "IIZawvk6qgU" >}}
 
-# [__ScreeIn__](https://youtu.be/EAn3e9ZSjdM)
+# [__ScreeIn__]({{< ref "screeintechdesign.md" >}})
 
 This in-development psychological horror game is built with **UE5**, focusing on **atmospheric environment design** and **immersive mood setting**. Utilizing **UE Sequencer**, the game seamlessly blends cinematic storytelling with gameplay to enhance player immersion.
 
@@ -53,10 +53,10 @@ Ranked 151 overall in 550 submissions.
 {{< gallery
 	"/PFAT/FAT_0.gif"
 	"/PFAT/FAT_1.gif"
+  "/PFAT/FAT_2.gif"
 >}}
 
 {{< gallery
-	"/PFAT/FAT_2.gif"
 	"/PFAT/FAT_3.gif"
 	"/PFAT/Result.png"
 >}}

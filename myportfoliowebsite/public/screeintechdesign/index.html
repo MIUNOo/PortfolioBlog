@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  ScreeIn Technical Design · MiunoDev
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Chenjie Zhang">
+<meta name="description" content="
+  Screen-Scoring for “Is the Player Actually Looking at This Object?”
+  
+    
+    Link to heading
+  
+
+Unreal’s built-in LineOfSightTo (and most “AI sight” tutorials) only answer can this be seen—a straight line from eye to target’s center with occlusion checks.
+In first-person games, we often need did the player actually notice it: the object may be at the screen edge, partially visible, or just flicker in for a single frame.">
+<meta name="keywords" content="">
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ScreeIn Technical Design">
+  <meta name="twitter:description" content="Screen-Scoring for “Is the Player Actually Looking at This Object?”Link to headingUnreal’s built-in LineOfSightTo (and most “AI sight” tutorials) only answer can this be seen—a straight line from eye to target’s center with occlusion checks. In first-person games, we often need did the player actually notice it: the object may be at the screen edge, partially visible, or just flicker in for a single frame.">
+
+<meta property="og:url" content="http://localhost:1313/screeintechdesign/">
+  <meta property="og:site_name" content="MiunoDev">
+  <meta property="og:title" content="ScreeIn Technical Design">
+  <meta property="og:description" content="Screen-Scoring for “Is the Player Actually Looking at This Object?”Link to headingUnreal’s built-in LineOfSightTo (and most “AI sight” tutorials) only answer can this be seen—a straight line from eye to target’s center with occlusion checks. In first-person games, we often need did the player actually notice it: the object may be at the screen edge, partially visible, or just flicker in for a single frame.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2025-10-12T02:13:25-07:00">
+    <meta property="article:modified_time" content="2025-10-12T02:13:25-07:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/screeintechdesign/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+  
+    
+    <link rel="stylesheet" href="/css/custom.css" media="screen">
+  
+
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      MiunoDev
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/projects/">Projects</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/resumee/">Resume</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container page">
+  <article>
+    <header>
+      <h1 class="title">
+        <a class="title-link" href="http://localhost:1313/screeintechdesign/">
+          ScreeIn Technical Design
+        </a>
+      </h1>
+    </header>
+    <h2 id="screen-scoring-for-is-the-player-actually-looking-at-this-object">
+  Screen-Scoring for “Is the Player Actually Looking at This Object?”
+  <a class="heading-link" href="#screen-scoring-for-is-the-player-actually-looking-at-this-object">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Unreal’s built-in <code>LineOfSightTo</code> (and most “AI sight” tutorials) only answer <strong>can this be seen</strong>—a straight line from eye to target’s center with occlusion checks.
+In first-person games, we often need <strong>did the player actually notice it</strong>: the object may be at the screen edge, partially visible, or just flicker in for a single frame.</p>
+<p>With existing <strong>center-screen ray</strong> for interaction, we added a tiny <strong>anchor</strong> test and <strong>dwell/hysteresis</strong> to robustly detect attention—<strong>without</strong> heavy screen-space sampling or GPU readbacks.</p>
+<hr>
+<h3 id="what-we-made">
+  What we made
+  <a class="heading-link" href="#what-we-made">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>A <strong>minimal screen-scoring</strong> method that confirms <em>attention</em>, not just visibility:</p>
+<ol>
+<li><strong>Center ray (hard gate):</strong> one trace forward each frame.</li>
+<li><strong>Anchors (partial-visibility):</strong> 5 light-weight points (AABB 4 corners + center).</li>
+<li><strong>Dwell &amp; hysteresis:</strong> require continuous evidence for <code>DwellSeconds</code> to gain attention; require continuous absence for <code>DropSeconds</code> to lose it.</li>
+<li><strong>Eccentricity factor:</strong> scale dwell by how close the target’s projected center is to the reticle (closer → faster accumulation).</li>
+</ol>
+<p>This keeps cost tiny and behavior human-like.</p>
+<p>First we get the AABB of the obeject, we let the anchors be the four corners and the center of object,</p>
+<figure><img src="/PSI/PSI_AABB.png">
+</figure>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ff79c6">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">CollectAnchors</span>(<span style="color:#ff79c6">const</span> AActor<span style="color:#ff79c6">*</span> T, TArray<span style="color:#ff79c6">&lt;</span>FVector<span style="color:#ff79c6">&gt;&amp;</span> Out)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    Out.Reset();
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> FBox B <span style="color:#ff79c6">=</span> T<span style="color:#ff79c6">-&gt;</span>GetComponentsBoundingBox(<span style="color:#8be9fd;font-style:italic">true</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> FVector Min<span style="color:#ff79c6">=</span>B.Min, Max<span style="color:#ff79c6">=</span>B.Max, C<span style="color:#ff79c6">=</span>B.GetCenter();
+</span></span><span style="display:flex;"><span>    Out.Append({ C,
+</span></span><span style="display:flex;"><span>                 FVector(Min.X, Min.Y, Min.Z),
+</span></span><span style="display:flex;"><span>                 FVector(Max.X, Min.Y, Min.Z),
+</span></span><span style="display:flex;"><span>                 FVector(Min.X, Max.Y, Min.Z),
+</span></span><span style="display:flex;"><span>                 FVector(Max.X, Max.Y, Max.Z) });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We then test anchors against <strong>two concentric rings</strong> centered at the reticle—<strong>inner radius = short side × 1/4</strong>, <strong>outer radius = short side × 1/2</strong>—and perform a single occlusion trace per point.</p>
+<ul>
+<li>Inside inner ring: dwell rate = <strong>0.10 s/sec × (1 − d/innerR)</strong></li>
+<li>Between inner &amp; outer rings: dwell rate = <strong>0.05 s/sec × linear falloff</strong></li>
+<li>Outside outer ring or occluded: <strong>0</strong></li>
+</ul>
+<figure><img src="/PSI/PSI_ANCHOR.png">
+</figure>
+
+<pre class="pseudo"><code><span class="com">
+# Compute how fast to add dwell this frame based on reticle proximity.</span>
+<span class="com"># Two rings centered at screen center: inner = shortSide*<span class="num">1</span>/<span class="num">4</span>, outer = shortSide*<span class="num">1</span>/<span class="num">2</span>.</span>
+<span class="kw">FUNCTION</span> DwellRate(pointOnTarget):
+
+  screenPos = ProjectToScreen(pointOnTarget)
+  center    = ScreenCenter()
+  d         = Distance(screenPos, center)
+
+  innerR = ShortSide() * <span class="num">0.25</span>
+  outerR = ShortSide() * <span class="num">0.50</span>
+
+  <span class="kw">IF</span> d &gt; outerR:
+    <span class="kw">RETURN</span> <span class="num">0</span>
+
+  <span class="kw">IF</span> d &lt;= innerR:
+<span class="com">    # closer → faster, max at center = <span class="num">0.10</span> s/sec</span>
+    <span class="kw">RETURN</span> <span class="num">0.10</span> * (<span class="num">1</span> - d / innerR)
+  <span class="kw">ELSE</span>:
+<span class="com">    # between inner <span class="kw">and</span> outer, fades to <span class="num">0</span> at outer edge, max <span class="num">0.05</span> s/sec</span>
+    <span class="kw">RETURN</span> <span class="num">0.05</span> * (<span class="num">1</span> - (d - innerR) / (outerR - innerR))
+<span class="com">
+
+# One frame update: combine center <span class="kw">and</span> anchors, <span class="kw">then</span> update dwell/drop timers.</span>
+<span class="kw">FUNCTION</span> UpdateAttention(target, deltaTime):
+<span class="com">
+  # Evidence from center (use target center)</span>
+  rateCenter = DwellRate(TargetCenter(target))
+<span class="com">
+  # Evidence from a few anchor points (corners + center)</span>
+  rateAnchors = <span class="num">0</span>
+  <span class="kw">FOR</span> p IN AnchorPoints(target):
+    rateAnchors = MAX(rateAnchors, DwellRate(p))
+
+  dwellRate = MAX(rateCenter, rateAnchors)
+<span class="com">
+  # Accumulate dwell <span class="kw">if</span> we have any rate; otherwise count drop time</span>
+  <span class="kw">IF</span> dwellRate &gt; <span class="num">0</span>:
+    dwell += dwellRate * deltaTime
+    drop   = <span class="num">0</span>
+  <span class="kw">ELSE</span>:
+    drop  += deltaTime
+    dwell  = <span class="num">0</span>
+<span class="com">
+  # Hysteresis: gain after holding, lose after leaving</span>
+  <span class="kw">IF</span> <span class="kw">NOT</span> attention <span class="kw">AND</span> dwell &gt;= <span class="num">0.20</span>:
+    attention = <span class="kw">TRUE</span>
+    dwell = <span class="num">0</span>
+
+  <span class="kw">IF</span> attention <span class="kw">AND</span> drop &gt;= <span class="num">0.20</span>:
+    attention = <span class="kw">FALSE</span>
+    drop = <span class="num">0</span>
+</code></pre>
+
+<p>When the <code>DwellTime</code> reaches a threshold limit, say <code>0.2s</code>, it triggers the event we want</p>
+<figure><img src="/PSI/PSI_FALL.gif">
+</figure>
+
+<hr>
+<h3 id="thoughts">
+  Thoughts
+  <a class="heading-link" href="#thoughts">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Another approach is <strong>level design</strong>: gently steer the player toward a small <strong>point of interest</strong> that triggers the event—e.g., high-contrast lighting, a standout prop, or a clear lever/button. This is often cheaper and more reliable for pacing. Still, we want a <strong>programmable</strong> solution to cover systemic cases and edge conditions.</p>
+<p>For comparison, <strong>Phasmophobia</strong> uses a camera system where the photo sensor effectively applies a similar <em>scoring</em> idea to evaluate snapshot quality. That pipeline is tuned for <strong>captured images</strong>. In contrast, our method tracks <strong>real-time player attention</strong> and triggers events <strong>instantly</strong>, not only when a photo is taken.</p>
+<hr>
+<hr>
+<h2 id="level-design-into-horror--from-terror-to-horror">
+  Level Design into Horror &ndash; From Terror to Horror
+  <a class="heading-link" href="#level-design-into-horror--from-terror-to-horror">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Our game</p>
+
+  </article>
+</section>
+
+  
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2025
+     Chenjie Zhang 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

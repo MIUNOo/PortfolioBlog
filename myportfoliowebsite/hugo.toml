@@ -13,7 +13,9 @@ enableEmoji = true
 # shortname = "yourdiscussshortname"
 
 [markup.highlight]
-noClasses = false
+noClasses = true
+style = "dracula"   # pick any: monokai, github, etc.
+lineNos = false
 
 [params]
 author = "Chenjie Zhang"

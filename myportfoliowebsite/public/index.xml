@@ -6,8 +6,15 @@
     <description>Recent content on MiunoDev</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Jan 2025 01:21:54 -0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 Oct 2025 02:13:25 -0700</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ScreeIn Technical Design</title>
+      <link>http://localhost:1313/screeintechdesign/</link>
+      <pubDate>Sun, 12 Oct 2025 02:13:25 -0700</pubDate>
+      <guid>http://localhost:1313/screeintechdesign/</guid>
+      <description>&lt;h2 id=&#34;screen-scoring-for-is-the-player-actually-looking-at-this-object&#34;&gt;&#xD;&#xA;  Screen-Scoring for “Is the Player Actually Looking at This Object?”&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#screen-scoring-for-is-the-player-actually-looking-at-this-object&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;Unreal’s built-in &lt;code&gt;LineOfSightTo&lt;/code&gt; (and most “AI sight” tutorials) only answer &lt;strong&gt;can this be seen&lt;/strong&gt;—a straight line from eye to target’s center with occlusion checks.&#xA;In first-person games, we often need &lt;strong&gt;did the player actually notice it&lt;/strong&gt;: the object may be at the screen edge, partially visible, or just flicker in for a single frame.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Resume</title>
       <link>http://localhost:1313/resumee/</link>
