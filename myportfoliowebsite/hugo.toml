@@ -47,7 +47,7 @@ customCSS = ["css/custom.css"]
 customSCSS = []
 
 # Custom JS
-customJS = []
+customJS = ["js/slide-toc.js"]
 
 # Custom remote JS files
 customRemoteJS = []

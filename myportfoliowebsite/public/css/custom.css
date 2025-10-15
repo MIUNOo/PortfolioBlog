@@ -74,83 +74,39 @@ pre.pseudo .com  { color: #5c6370; font-style: italic;} /* comments  */
 }
 
 
+/* Edge activator: open when cursor hits left edge */
+#edge-hover{position:fixed;top:0;left:0;width:20px;height:100vh;z-index:9000}
 
-/* Edge activator: when mouse touches left edge, open panel */
-#edge-hover {
-  position: fixed;
-  top: 0; left: 0;
-  width: 24px; height: 100vh;
-  z-index: 9000;
+/* Slide-out TOC panel */
+#slide-toc{
+  position:fixed;top:0;left:0;height:100vh;width:280px;
+  transform:translateX(-240px);transition:transform .2s ease;z-index:9001;
+  background:rgba(20,20,20,.96);color:#ddd;border-right:1px solid rgba(255,255,255,.08);
+  box-shadow:0 0 24px rgba(0,0,0,.35);backdrop-filter:blur(6px)
 }
+#slide-toc:hover,#edge-hover:hover + #slide-toc{transform:translateX(0)}
+#slide-toc .toc-inner{height:100%;overflow:auto;padding:16px 14px 24px 18px}
 
-#slide-toc {
-  position: fixed;
-  top: 0; left: 0;
-  height: 100vh;
-  width: 280px;
-  transform: translateX(-240px); /* collapsed shows a 40px tab */
-  transition: transform .22s ease;
-  z-index: 9001;
-  background: var(--toc-bg, rgba(24,24,24,.96));
-  color: var(--toc-fg, #ddd);
-  border-right: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 0 24px rgba(0,0,0,.35);
-  backdrop-filter: blur(6px);
+/* Reset Hugo TOC list */
+#slide-toc nav>ul{list-style:none;margin:0;padding:0}
+#slide-toc li{margin:6px 0}
+#slide-toc a{
+  display:block;text-decoration:none;color:inherit;padding:6px 8px;border-radius:6px;
+  line-height:1.25;font-size:.95rem;opacity:.9
 }
-#slide-toc:hover,
-#edge-hover:hover + #slide-toc {
-  transform: translateX(0); /* expand */
-}
+#slide-toc a:hover{background:rgba(255,255,255,.06);opacity:1}
+#slide-toc ul ul a{padding-left:20px;font-size:.92rem;opacity:.85}
+#slide-toc ul ul ul a{padding-left:32px;font-size:.9rem;opacity:.8}
 
-#slide-toc .toc-inner {
-  height: 100%;
-  overflow: auto;
-  padding: 16px 14px 24px 18px;
+/* Active section (scrollspy) */
+#slide-toc a.active{
+  background:rgba(0,209,178,.18);border-left:3px solid #00d1b2;padding-left:5px;opacity:1
 }
 
-/* Reset Hugo TOC list and make it clean */
-#slide-toc .toc-inner > nav > ul {
-  list-style: none;
-  margin: 0; padding: 0;
-}
-#slide-toc li { margin: 6px 0; }
-#slide-toc a {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  padding: 6px 8px;
-  border-radius: 6px;
-  line-height: 1.25;
-  font-size: 0.95rem;
-  opacity: .9;
-}
-#slide-toc a:hover { background: rgba(255,255,255,.06); opacity: 1; }
-
-/* Indentation for nested headings */
-#slide-toc ul ul a { padding-left: 20px; font-size: .92rem; opacity: .85; }
-#slide-toc ul ul ul a { padding-left: 32px; font-size: .9rem; opacity: .8; }
-
-/* Active (scrollspy) */
-#slide-toc a.active {
-  background: rgba(0,209,178,.18);
-  border-left: 3px solid #00d1b2;
-  padding-left: 5px; /* compensate for border */
-  opacity: 1;
+/* Hover preview tooltip */
+.toc-tooltip{
+  position:fixed;max-width:360px;background:#111;color:#ddd;border:1px solid rgba(255,255,255,.08);
+  padding:8px 10px;font-size:.88rem;line-height:1.25;border-radius:8px;pointer-events:none;
+  z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,.35);display:none
 }
 
-/* Tooltip for preview */
-.toc-tooltip {
-  position: fixed;
-  max-width: 360px;
-  background: #111;
-  color: #ddd;
-  border: 1px solid rgba(255,255,255,.08);
-  padding: 8px 10px;
-  font-size: .88rem;
-  line-height: 1.25;
-  border-radius: 8px;
-  pointer-events: none;
-  z-index: 9999;
-  box-shadow: 0 8px 30px rgba(0,0,0,.35);
-  display: none;
-}

@@ -2,6 +2,7 @@
 title = 'ScreeIn Technical Design'
 date = 2025-10-12T02:13:25-07:00
 draft = false
+showSlideToc = true
 +++
 
 

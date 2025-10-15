@@ -2,6 +2,7 @@
 title = 'Projects'
 type = 'projects'
 date = 2024-09-11T12:01:57-07:00
+showSlideToc = true
 +++
 
 <!-- Working on this page, anyone know how to include youtube embedd to md file?
