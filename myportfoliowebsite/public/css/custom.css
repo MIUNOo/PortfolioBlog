@@ -73,40 +73,203 @@ pre.pseudo .com  { color: #5c6370; font-style: italic;} /* comments  */
   padding-right: 2rem;      /* optional */
 }
 
-
-/* Edge activator: open when cursor hits left edge */
-#edge-hover{position:fixed;top:0;left:0;width:20px;height:100vh;z-index:9000}
-
-/* Slide-out TOC panel */
-#slide-toc{
-  position:fixed;top:0;left:0;height:100vh;width:280px;
-  transform:translateX(-240px);transition:transform .2s ease;z-index:9001;
-  background:rgba(20,20,20,.96);color:#ddd;border-right:1px solid rgba(255,255,255,.08);
-  box-shadow:0 0 24px rgba(0,0,0,.35);backdrop-filter:blur(6px)
-}
-#slide-toc:hover,#edge-hover:hover + #slide-toc{transform:translateX(0)}
-#slide-toc .toc-inner{height:100%;overflow:auto;padding:16px 14px 24px 18px}
-
-/* Reset Hugo TOC list */
-#slide-toc nav>ul{list-style:none;margin:0;padding:0}
-#slide-toc li{margin:6px 0}
-#slide-toc a{
-  display:block;text-decoration:none;color:inherit;padding:6px 8px;border-radius:6px;
-  line-height:1.25;font-size:.95rem;opacity:.9
-}
-#slide-toc a:hover{background:rgba(255,255,255,.06);opacity:1}
-#slide-toc ul ul a{padding-left:20px;font-size:.92rem;opacity:.85}
-#slide-toc ul ul ul a{padding-left:32px;font-size:.9rem;opacity:.8}
-
-/* Active section (scrollspy) */
-#slide-toc a.active{
-  background:rgba(0,209,178,.18);border-left:3px solid #00d1b2;padding-left:5px;opacity:1
+/* Floating TOC Styles */
+.toc-toggle {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    cursor: pointer;
+    user-select: none;
 }
 
-/* Hover preview tooltip */
-.toc-tooltip{
-  position:fixed;max-width:360px;background:#111;color:#ddd;border:1px solid rgba(255,255,255,.08);
-  padding:8px 10px;font-size:.88rem;line-height:1.25;border-radius:8px;pointer-events:none;
-  z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,.35);display:none
+.toc-dashes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 1;
+    visibility: visible;
 }
 
+.toc-toggle:hover .toc-dashes {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.dash {
+    width: 20px;
+    height: 2px;
+    background-color: #61afef;
+    border-radius: 1px;
+    transition: background-color 0.3s ease;
+}
+
+/* Dark mode dashes */
+body.colorscheme-dark .dash {
+    background-color: #61afef;
+}
+
+/* Light mode dashes */
+body.colorscheme-light .dash {
+    background-color: #0184bc;
+}
+
+.toc-list {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(45, 45, 45, 0.95);
+    border: 1px solid #3e3e3e;
+    border-radius: 8px;
+    padding: 16px 0;
+    min-width: 240px;
+    max-height: 70vh;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+/* Dark mode TOC list */
+body.colorscheme-dark .toc-list {
+    background-color: rgba(45, 45, 45, 0.95);
+    border: 1px solid #3e3e3e;
+}
+
+/* Light mode TOC list */
+body.colorscheme-light .toc-list {
+    background-color: rgba(240, 240, 240, 0.95);
+    border: 1px solid #d0d0d0;
+}
+
+.toc-toggle:hover .toc-list {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Reset ul/li styles */
+.toc-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.toc-list li {
+    margin: 0;
+    padding: 0;
+}
+
+.toc-list a {
+    display: block;
+    padding: 8px 16px;
+    color: #61afef;
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Dark mode links */
+body.colorscheme-dark .toc-list a {
+    color: #61afef;
+}
+
+/* Light mode links */
+body.colorscheme-light .toc-list a {
+    color: #0184bc;
+}
+
+.toc-list a:hover {
+    background-color: rgba(97, 175, 239, 0.1);
+    border-left-color: #61afef;
+    padding-left: 20px;
+    transition: all 0.2s ease;
+}
+
+/* Light mode hover */
+body.colorscheme-light .toc-list a:hover {
+    background-color: rgba(1, 132, 188, 0.1);
+    border-left-color: #0184bc;
+}
+
+.toc-list a.active {
+    color: #c678dd;
+    border-left-color: #c678dd;
+    font-weight: 500;
+}
+
+/* Light mode active */
+body.colorscheme-light .toc-list a.active {
+    color: #a626a4;
+    border-left-color: #a626a4;
+}
+
+/* Second level headings (h3) indentation */
+.toc-list ul ul a {
+    padding-left: 32px;
+    color: #56b6c2;
+    font-size: 12px;
+}
+
+/* Light mode h3 */
+body.colorscheme-light .toc-list ul ul a {
+    color: #0184bc;
+}
+
+.toc-list ul ul a:hover {
+    padding-left: 36px;
+}
+
+/* Scrollbar styling */
+.toc-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.toc-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.colorscheme-light .toc-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.toc-list::-webkit-scrollbar-thumb {
+    background: rgba(97, 175, 239, 0.3);
+    border-radius: 3px;
+}
+
+body.colorscheme-light .toc-list::-webkit-scrollbar-thumb {
+    background: rgba(1, 132, 188, 0.3);
+    border-radius: 3px;
+}
+
+.toc-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(97, 175, 239, 0.6);
+}
+
+body.colorscheme-light .toc-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(1, 132, 188, 0.6);
+}
+
+@media (max-width: 1024px) {
+    .toc-toggle {
+        right: 12px;
+    }
+    .toc-list {
+        right: 12px;
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .toc-toggle {
+        display: none;
+    }
+}

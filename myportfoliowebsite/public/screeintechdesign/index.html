@@ -13,21 +13,26 @@
 
 
 <meta name="author" content="Chenjie Zhang">
-<meta name="description" content="Screen-Scoring for “Is the Player Actually Looking at This Object?”Link to headingUnreal’s built-in LineOfSightTo (and most “AI sight” tutorials) only answer can this be seen—a straight line from eye to target’s center with occlusion checks. In first-person games, we often need did the player actually notice it: the object may be at the screen edge, partially visible, or just flicker in for a single frame.
-With existing center-screen ray for interaction, we added a tiny anchor test and dwell/hysteresis to robustly detect attention—without heavy screen-space sampling or GPU readbacks.">
+<meta name="description" content="
+  Screen-Scoring for “Is the Player Actually Looking at This Object?”
+  
+    
+    Link to heading
+  
+
+Unreal’s built-in LineOfSightTo (and most “AI sight” tutorials) only answer can this be seen—a straight line from eye to target’s center with occlusion checks.
+In first-person games, we often need did the player actually notice it: the object may be at the screen edge, partially visible, or just flicker in for a single frame.">
 <meta name="keywords" content="">
 
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="ScreeIn Technical Design">
-  <meta name="twitter:description" content="Screen-Scoring for “Is the Player Actually Looking at This Object?”Link to headingUnreal’s built-in LineOfSightTo (and most “AI sight” tutorials) only answer can this be seen—a straight line from eye to target’s center with occlusion checks. In first-person games, we often need did the player actually notice it: the object may be at the screen edge, partially visible, or just flicker in for a single frame.
-With existing center-screen ray for interaction, we added a tiny anchor test and dwell/hysteresis to robustly detect attention—without heavy screen-space sampling or GPU readbacks.">
+  <meta name="twitter:description" content="Screen-Scoring for “Is the Player Actually Looking at This Object?”Link to headingUnreal’s built-in LineOfSightTo (and most “AI sight” tutorials) only answer can this be seen—a straight line from eye to target’s center with occlusion checks. In first-person games, we often need did the player actually notice it: the object may be at the screen edge, partially visible, or just flicker in for a single frame.">
 
 <meta property="og:url" content="http://localhost:1313/screeintechdesign/">
   <meta property="og:site_name" content="MiunoDev">
   <meta property="og:title" content="ScreeIn Technical Design">
-  <meta property="og:description" content="Screen-Scoring for “Is the Player Actually Looking at This Object?”Link to headingUnreal’s built-in LineOfSightTo (and most “AI sight” tutorials) only answer can this be seen—a straight line from eye to target’s center with occlusion checks. In first-person games, we often need did the player actually notice it: the object may be at the screen edge, partially visible, or just flicker in for a single frame.
-With existing center-screen ray for interaction, we added a tiny anchor test and dwell/hysteresis to robustly detect attention—without heavy screen-space sampling or GPU readbacks.">
+  <meta property="og:description" content="Screen-Scoring for “Is the Player Actually Looking at This Object?”Link to headingUnreal’s built-in LineOfSightTo (and most “AI sight” tutorials) only answer can this be seen—a straight line from eye to target’s center with occlusion checks. In first-person games, we often need did the player actually notice it: the object may be at the screen edge, partially visible, or just flicker in for a single frame.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:published_time" content="2025-10-12T02:13:25-07:00">
@@ -99,30 +104,12 @@ With existing center-screen ray for interaction, we added a tiny anchor test and
 <body class="preload-transitions colorscheme-auto">
   
 <div class="float-container">
+    
     <a id="dark-mode-toggle" class="colorscheme-toggle">
         <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
     </a>
 
-    
-        
-<div id="edge-hover"></div>
 
-<aside id="slide-toc" aria-label="Table of contents">
-  <div class="toc-inner">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#screen-scoring-for-is-the-player-actually-looking-at-this-object">Screen-Scoring for “Is the Player Actually Looking at This Object?”</a>
-      <ul>
-        <li><a href="#what-we-made">What we made</a></li>
-        <li><a href="#thoughts">Thoughts</a></li>
-      </ul>
-    </li>
-    <li><a href="#level-design-into-horror----from-terror-to-horror">Level Design into Horror &ndash; From Terror to Horror</a></li>
-  </ul>
-</nav>
-  </div>
-</aside>
-    
 </div>
 
 
@@ -168,24 +155,79 @@ With existing center-screen ray for interaction, we added a tiny anchor test and
 
     <div class="content">
       
-  
-<div id="edge-hover"></div>
-
-<aside id="slide-toc" aria-label="Table of contents">
-  <div class="toc-inner">
-    <nav id="TableOfContents">
+    
+        
+<div class="toc-toggle">
+    <div class="toc-dashes">
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+    </div>
+    <nav class="toc-list" id="toc-list">
+        <nav id="TableOfContents">
   <ul>
-    <li><a href="#screen-scoring-for-is-the-player-actually-looking-at-this-object">Screen-Scoring for “Is the Player Actually Looking at This Object?”</a>
+    <li>
       <ul>
-        <li><a href="#what-we-made">What we made</a></li>
-        <li><a href="#thoughts">Thoughts</a></li>
+        <li><a href="#screen-scoring-for-is-the-player-actually-looking-at-this-object">Screen-Scoring for “Is the Player Actually Looking at This Object?”</a>
+          <ul>
+            <li><a href="#what-we-made">What we made</a></li>
+            <li><a href="#thoughts">Thoughts</a></li>
+          </ul>
+        </li>
+        <li><a href="#level-design-into-horror--from-terror-to-horror">Level Design into Horror &ndash; From Terror to Horror</a></li>
       </ul>
     </li>
-    <li><a href="#level-design-into-horror----from-terror-to-horror">Level Design into Horror &ndash; From Terror to Horror</a></li>
   </ul>
 </nav>
-  </div>
-</aside>  
+    </nav>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        updateDashCount();
+        updateActiveLink();
+        window.addEventListener('scroll', updateActiveLink);
+    });
+
+    function updateDashCount() {
+        const tocList = document.getElementById('toc-list');
+        const headingCount = tocList.querySelectorAll('a').length;
+        const dashes = document.querySelectorAll('.dash');
+        const dashContainer = document.querySelector('.toc-dashes');
+        
+        dashContainer.innerHTML = '';
+        for (let i = 0; i < Math.min(headingCount, 5); i++) {
+            const dash = document.createElement('div');
+            dash.className = 'dash';
+            dashContainer.appendChild(dash);
+        }
+    }
+
+    function updateActiveLink() {
+        const links = document.querySelectorAll('.toc-list a');
+        let current = null;
+        
+        document.querySelectorAll('h2, h3').forEach((heading) => {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top <= 150) {
+                current = heading.id;
+            }
+        });
+        
+        links.forEach((link) => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href && href === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+</script>
+    
+
   <section class="container page">
   <article>
     <header>
@@ -245,8 +287,6 @@ In first-person games, we often need <strong>did the player actually notice it</
 <figure><img src="/PSI/PSI_ANCHOR.png">
 </figure>
 
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
 <pre class="pseudo"><code><span class="com">
 # Compute how fast to add dwell this frame based on reticle proximity.</span>
 <span class="com"># Two rings centered at screen center: inner = shortSide*<span class="num">1</span>/<span class="num">4</span>, outer = shortSide*<span class="num">1</span>/<span class="num">2</span>.</span>
@@ -305,7 +345,6 @@ In first-person games, we often need <strong>did the player actually notice it</
 <figure><img src="/PSI/PSI_FALL.gif">
 </figure>
 
-<!-- raw HTML omitted -->
 <hr>
 <h3 id="thoughts">
   Thoughts
@@ -318,9 +357,9 @@ In first-person games, we often need <strong>did the player actually notice it</
 <p>For comparison, <strong>Phasmophobia</strong> uses a camera system where the photo sensor effectively applies a similar <em>scoring</em> idea to evaluate snapshot quality. That pipeline is tuned for <strong>captured images</strong>. In contrast, our method tracks <strong>real-time player attention</strong> and triggers events <strong>instantly</strong>, not only when a photo is taken.</p>
 <hr>
 <hr>
-<h2 id="level-design-into-horror----from-terror-to-horror">
+<h2 id="level-design-into-horror--from-terror-to-horror">
   Level Design into Horror &ndash; From Terror to Horror
-  <a class="heading-link" href="#level-design-into-horror----from-terror-to-horror">
+  <a class="heading-link" href="#level-design-into-horror--from-terror-to-horror">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
@@ -357,19 +396,11 @@ In first-person games, we often need <strong>did the player actually notice it</
   
 
   
-  
-  
-  <script src="/js/slide-toc.js"></script>
-  
-  
 
   
 
 
   
-  
-
-
 
   
 

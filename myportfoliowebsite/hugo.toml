@@ -47,7 +47,7 @@ customCSS = ["css/custom.css"]
 customSCSS = []
 
 # Custom JS
-customJS = ["js/slide-toc.js"]
+customJS = []
 
 # Custom remote JS files
 customRemoteJS = []
@@ -188,4 +188,11 @@ name = "Contact me"
 weight = 5
 url = "contact/"
 
+[markup.tableOfContents]
+startLevel = 1  # include H1 if you use it
+endLevel   = 4
+ordered    = false
 
+[markup.goldmark.parser.attribute]
+block = true
+title = true

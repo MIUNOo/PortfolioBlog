@@ -2,6 +2,10 @@
   {{ .Title }} · {{ .Site.Title }}
 {{ end }}
 {{ define "content" }}
+    {{ if .Params.showSlideToc }}
+        {{ partial "floating-toc.html" . }}
+    {{ end }}
+
 <div class="content">
   <section class="container page">
   <article>

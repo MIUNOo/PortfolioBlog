@@ -2,7 +2,10 @@
   {{ .Title }} · {{ .Site.Title }}
 {{ end }}
 {{ define "content" }}
-  {{ partial "slide-toc.html" . }}  
+    {{ if .Params.showSlideToc }}
+        {{ partial "floating-toc.html" . }}
+    {{ end }}
+
   {{ partial "page.html" . }}
   {{ partial "posts/math.html" . }}
 {{ end }}

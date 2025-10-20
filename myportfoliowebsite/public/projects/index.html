@@ -13,18 +13,88 @@
 
 
 <meta name="author" content="Chenjie Zhang">
-<meta name="description" content="&mdash;-Featured Projects&mdash;-Link to headingEscape Room Game (FYP)Link to headingThis is an escape room game build with UE5, alonged with 4 puzzles consist with 9 pickable objects and 4 interaction mechanisms. A key-lock linkage system is embedded in the game through event dispatcher. The player can use a reveal glasses to reveal hidden clues. It also features a level editor that allows player to customize a level with all the objects in the game and save/load the level.">
+<meta name="description" content="
+  &mdash;-Featured Projects&mdash;-
+  
+    
+    Link to heading
+  
+
+
+  ScreeIn
+  
+    
+    Link to heading
+  
+
+Steam
+Technical Design Summary
+This in-development psychological horror game is built with UE5, focusing on atmospheric environment design and immersive mood setting. Utilizing UE Sequencer, the game seamlessly blends cinematic storytelling with gameplay to enhance player immersion.
+
+
+
+
+
+
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+  
+
+
+
+
+
+
+
+
+
+      
+    
+
+
+  Escape Room Game (FYP)
+  
+    
+    Link to heading
+  
+
+Play On Itch.io">
 <meta name="keywords" content="">
 
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Projects">
-  <meta name="twitter:description" content="—-Featured Projects—-Link to headingEscape Room Game (FYP)Link to headingThis is an escape room game build with UE5, alonged with 4 puzzles consist with 9 pickable objects and 4 interaction mechanisms. A key-lock linkage system is embedded in the game through event dispatcher. The player can use a reveal glasses to reveal hidden clues. It also features a level editor that allows player to customize a level with all the objects in the game and save/load the level.">
+  <meta name="twitter:description" content="—-Featured Projects—-Link to headingScreeInLink to headingSteam
+Technical Design Summary
+This in-development psychological horror game is built with UE5, focusing on atmospheric environment design and immersive mood setting. Utilizing UE Sequencer, the game seamlessly blends cinematic storytelling with gameplay to enhance player immersion.
+Escape Room Game (FYP)Link to headingPlay On Itch.io">
 
 <meta property="og:url" content="http://localhost:1313/projects/">
   <meta property="og:site_name" content="MiunoDev">
   <meta property="og:title" content="Projects">
-  <meta property="og:description" content="—-Featured Projects—-Link to headingEscape Room Game (FYP)Link to headingThis is an escape room game build with UE5, alonged with 4 puzzles consist with 9 pickable objects and 4 interaction mechanisms. A key-lock linkage system is embedded in the game through event dispatcher. The player can use a reveal glasses to reveal hidden clues. It also features a level editor that allows player to customize a level with all the objects in the game and save/load the level.">
+  <meta property="og:description" content="—-Featured Projects—-Link to headingScreeInLink to headingSteam
+Technical Design Summary
+This in-development psychological horror game is built with UE5, focusing on atmospheric environment design and immersive mood setting. Utilizing UE Sequencer, the game seamlessly blends cinematic storytelling with gameplay to enhance player immersion.
+Escape Room Game (FYP)Link to headingPlay On Itch.io">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:published_time" content="2024-09-11T12:01:57-07:00">
@@ -96,28 +166,12 @@
 <body class="preload-transitions colorscheme-auto">
   
 <div class="float-container">
+    
     <a id="dark-mode-toggle" class="colorscheme-toggle">
         <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
     </a>
 
-    
-        
-<div id="edge-hover"></div>
 
-<aside id="slide-toc" aria-label="Table of contents">
-  <div class="toc-inner">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#----featured-projects----">&mdash;-Featured Projects&mdash;-</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#----recent-projects----">&mdash;-Recent Projects&mdash;-</a></li>
-  </ul>
-</nav>
-  </div>
-</aside>
-    
 </div>
 
 
@@ -163,6 +217,79 @@
 
     <div class="content">
       
+    
+        
+<div class="toc-toggle">
+    <div class="toc-dashes">
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+    </div>
+    <nav class="toc-list" id="toc-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-featured-projects-">&mdash;-Featured Projects&mdash;-</a></li>
+    <li><a href="#screein"><strong>ScreeIn</strong></a></li>
+    <li><a href="#escape-room-game-fyp"><strong>Escape Room Game (FYP)</strong></a></li>
+    <li><a href="#fire-all-the-thing"><strong>Fire All The Thing</strong></a></li>
+    <li><a href="#xpbd-cloth-simulation"><strong>XPBD Cloth Simulation</strong></a></li>
+    <li><a href="#-recent-projects-">&mdash;-Recent Projects&mdash;-</a></li>
+    <li><a href="#personal-game-library"><strong>Personal Game Library</strong></a></li>
+    <li><a href="#bu88le-mini-game"><strong>BU88LE (mini-game)</strong></a></li>
+    <li><a href="#dataviz-02"><strong>DataViz 0.2</strong></a></li>
+    <li><a href="#nobody-pitch-design-doc">NobOdy (Pitch Design Doc)</a></li>
+    <li><a href="#clue-game-system-anlysis">CLUE (Game system anlysis)</a></li>
+  </ul>
+</nav>
+    </nav>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        updateDashCount();
+        updateActiveLink();
+        window.addEventListener('scroll', updateActiveLink);
+    });
+
+    function updateDashCount() {
+        const tocList = document.getElementById('toc-list');
+        const headingCount = tocList.querySelectorAll('a').length;
+        const dashes = document.querySelectorAll('.dash');
+        const dashContainer = document.querySelector('.toc-dashes');
+        
+        dashContainer.innerHTML = '';
+        for (let i = 0; i < Math.min(headingCount, 5); i++) {
+            const dash = document.createElement('div');
+            dash.className = 'dash';
+            dashContainer.appendChild(dash);
+        }
+    }
+
+    function updateActiveLink() {
+        const links = document.querySelectorAll('.toc-list a');
+        let current = null;
+        
+        document.querySelectorAll('h2, h3').forEach((heading) => {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top <= 150) {
+                current = heading.id;
+            }
+        });
+        
+        links.forEach((link) => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href && href === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+</script>
+    
+
 <div class="content">
   <section class="container page">
   <article>
@@ -173,167 +300,22 @@
         </a>
       </h1>
     </header>
-    <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<h2 id="----featured-projects----">
+    <h1 id="-featured-projects-">
   &mdash;-Featured Projects&mdash;-
-  <a class="heading-link" href="#----featured-projects----">
-    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
-    <span class="sr-only">Link to heading</span>
-  </a>
-</h2>
-<h1 id="__escape-room-game-fyp__httpsmiunovoitchioescaperoomgame">
-  <a href="https://miunovo.itch.io/escaperoomgame"  class="external-link" target="_blank" rel="noopener"><strong>Escape Room Game (FYP)</strong></a>
-  <a class="heading-link" href="#__escape-room-game-fyp__httpsmiunovoitchioescaperoomgame">
+  <a class="heading-link" href="#-featured-projects-">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>This is an escape room game build with <strong>UE5</strong>, alonged with 4 puzzles consist with 9 pickable objects and 4 interaction mechanisms. A <strong>key-lock linkage system</strong> is embedded in the game through <strong>event dispatcher</strong>. The player can use a reveal glasses to reveal hidden clues. It also features a <strong>level editor</strong> that allows player to customize a level with all the objects in the game and <strong>save/load</strong> the level.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-
-
-
-
-
-<div class="scrollbox">
-  <div class="gallery">
-    
-    <div class="gallery-item">
-      
-        <img 
-          src="/PECR/GameTitle.png" 
-          alt="Gallery Image"
-          loading="lazy"
-          sizes="(min-width: 35em) 1200px, 100vw"
-          srcset="
-            /PECR/GameTitle.png 500w,
-            /PECR/GameTitle.png 800w,
-            /PECR/GameTitle.png 1200w,
-            /PECR/GameTitle.png 1500w"
-          class="gallery-img"
-        >
-      
-        <img 
-          src="/PECR/GameScene_0.png" 
-          alt="Gallery Image"
-          loading="lazy"
-          sizes="(min-width: 35em) 1200px, 100vw"
-          srcset="
-            /PECR/GameScene_0.png 500w,
-            /PECR/GameScene_0.png 800w,
-            /PECR/GameScene_0.png 1200w,
-            /PECR/GameScene_0.png 1500w"
-          class="gallery-img"
-        >
-      
-        <img 
-          src="/PECR/GameScene_1.png" 
-          alt="Gallery Image"
-          loading="lazy"
-          sizes="(min-width: 35em) 1200px, 100vw"
-          srcset="
-            /PECR/GameScene_1.png 500w,
-            /PECR/GameScene_1.png 800w,
-            /PECR/GameScene_1.png 1200w,
-            /PECR/GameScene_1.png 1500w"
-          class="gallery-img"
-        >
-      
-        <img 
-          src="/PECR/GameScene_2.png" 
-          alt="Gallery Image"
-          loading="lazy"
-          sizes="(min-width: 35em) 1200px, 100vw"
-          srcset="
-            /PECR/GameScene_2.png 500w,
-            /PECR/GameScene_2.png 800w,
-            /PECR/GameScene_2.png 1200w,
-            /PECR/GameScene_2.png 1500w"
-          class="gallery-img"
-        >
-      
-        <img 
-          src="/PECR/UMLMechanism_0.png" 
-          alt="Gallery Image"
-          loading="lazy"
-          sizes="(min-width: 35em) 1200px, 100vw"
-          srcset="
-            /PECR/UMLMechanism_0.png 500w,
-            /PECR/UMLMechanism_0.png 800w,
-            /PECR/UMLMechanism_0.png 1200w,
-            /PECR/UMLMechanism_0.png 1500w"
-          class="gallery-img"
-        >
-      
-        <img 
-          src="/PECR/UMLMechanism_1.png" 
-          alt="Gallery Image"
-          loading="lazy"
-          sizes="(min-width: 35em) 1200px, 100vw"
-          srcset="
-            /PECR/UMLMechanism_1.png 500w,
-            /PECR/UMLMechanism_1.png 800w,
-            /PECR/UMLMechanism_1.png 1200w,
-            /PECR/UMLMechanism_1.png 1500w"
-          class="gallery-img"
-        >
-      
-    </div>
-  </div>
-</div>
-
-<style>
-  .scrollbox {
-    overflow-x: auto; 
-    overflow-y: hidden; 
-    white-space: nowrap; 
-    padding-bottom: 5px; 
-    margin-bottom: 10px;
-  }
-
-  .gallery {
-    display: flex;
-    align-items: center; 
-    gap: 10px; 
-    padding: 5px 0;
-  }
-
-  .gallery-item {
-    display: flex;
-    gap: 10px; 
-    align-items: center; 
-    flex-wrap: nowrap;
-  }
-
-  .gallery-item img {
-    height: 200px; 
-    width: auto; 
-    max-width: 100%;
-    cursor: zoom-in;  
-  }
-</style>
-
-
-
-
-
-<div class="video-container">
-    <div class="video-item">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/3336_mtPs6E" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="video-item">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/IIZawvk6qgU" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </div>
-<h1 id="__screein__hahahugoshortcode16s3hbhb">
-  <a href="http://localhost:1313/screeintechdesign/" ><strong>ScreeIn</strong></a>
-  <a class="heading-link" href="#__screein__hahahugoshortcode16s3hbhb">
+<h1 id="screein">
+  <strong>ScreeIn</strong>
+  <a class="heading-link" href="#screein">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
+<p><a href="https://store.steampowered.com/app/3810820/ScreeIN/"  class="external-link" target="_blank" rel="noopener">Steam</a><br>
+<a href="http://localhost:1313/screeintechdesign/" >Technical Design Summary</a></p>
 <p>This in-development psychological horror game is built with <strong>UE5</strong>, focusing on <strong>atmospheric environment design</strong> and <strong>immersive mood setting</strong>. Utilizing <strong>UE Sequencer</strong>, the game seamlessly blends cinematic storytelling with gameplay to enhance player immersion.</p>
 
 
@@ -488,21 +470,162 @@
 
 
 
-
-
-    
-    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/EAn3e9ZSjdM?autoplay=0&controls=1&end=0&loop=0&mute=0&start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"
-      ></iframe>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/EAn3e9ZSjdM?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
     </div>
 
-<h1 id="__fire-all-the-thing__httpsmiunovoitchiofire-all-the-thing">
-  <a href="https://miunovo.itch.io/fire-all-the-thing"  class="external-link" target="_blank" rel="noopener"><strong>Fire All The Thing</strong></a>
-  <a class="heading-link" href="#__fire-all-the-thing__httpsmiunovoitchiofire-all-the-thing">
+<h1 id="escape-room-game-fyp">
+  <strong>Escape Room Game (FYP)</strong>
+  <a class="heading-link" href="#escape-room-game-fyp">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
+<p><a href="https://miunovo.itch.io/escaperoomgame"  class="external-link" target="_blank" rel="noopener">Play On Itch.io</a></p>
+<p>This is an escape room game build with <strong>UE5</strong>, alonged with 4 puzzles consist with 9 pickable objects and 4 interaction mechanisms. A <strong>key-lock linkage system</strong> is embedded in the game through <strong>event dispatcher</strong>. The player can use a reveal glasses to reveal hidden clues. It also features a <strong>level editor</strong> that allows player to customize a level with all the objects in the game and <strong>save/load</strong> the level.</p>
+
+
+
+
+
+<div class="scrollbox">
+  <div class="gallery">
+    
+    <div class="gallery-item">
+      
+        <img 
+          src="/PECR/GameTitle.png" 
+          alt="Gallery Image"
+          loading="lazy"
+          sizes="(min-width: 35em) 1200px, 100vw"
+          srcset="
+            /PECR/GameTitle.png 500w,
+            /PECR/GameTitle.png 800w,
+            /PECR/GameTitle.png 1200w,
+            /PECR/GameTitle.png 1500w"
+          class="gallery-img"
+        >
+      
+        <img 
+          src="/PECR/GameScene_0.png" 
+          alt="Gallery Image"
+          loading="lazy"
+          sizes="(min-width: 35em) 1200px, 100vw"
+          srcset="
+            /PECR/GameScene_0.png 500w,
+            /PECR/GameScene_0.png 800w,
+            /PECR/GameScene_0.png 1200w,
+            /PECR/GameScene_0.png 1500w"
+          class="gallery-img"
+        >
+      
+        <img 
+          src="/PECR/GameScene_1.png" 
+          alt="Gallery Image"
+          loading="lazy"
+          sizes="(min-width: 35em) 1200px, 100vw"
+          srcset="
+            /PECR/GameScene_1.png 500w,
+            /PECR/GameScene_1.png 800w,
+            /PECR/GameScene_1.png 1200w,
+            /PECR/GameScene_1.png 1500w"
+          class="gallery-img"
+        >
+      
+        <img 
+          src="/PECR/GameScene_2.png" 
+          alt="Gallery Image"
+          loading="lazy"
+          sizes="(min-width: 35em) 1200px, 100vw"
+          srcset="
+            /PECR/GameScene_2.png 500w,
+            /PECR/GameScene_2.png 800w,
+            /PECR/GameScene_2.png 1200w,
+            /PECR/GameScene_2.png 1500w"
+          class="gallery-img"
+        >
+      
+        <img 
+          src="/PECR/UMLMechanism_0.png" 
+          alt="Gallery Image"
+          loading="lazy"
+          sizes="(min-width: 35em) 1200px, 100vw"
+          srcset="
+            /PECR/UMLMechanism_0.png 500w,
+            /PECR/UMLMechanism_0.png 800w,
+            /PECR/UMLMechanism_0.png 1200w,
+            /PECR/UMLMechanism_0.png 1500w"
+          class="gallery-img"
+        >
+      
+        <img 
+          src="/PECR/UMLMechanism_1.png" 
+          alt="Gallery Image"
+          loading="lazy"
+          sizes="(min-width: 35em) 1200px, 100vw"
+          srcset="
+            /PECR/UMLMechanism_1.png 500w,
+            /PECR/UMLMechanism_1.png 800w,
+            /PECR/UMLMechanism_1.png 1200w,
+            /PECR/UMLMechanism_1.png 1500w"
+          class="gallery-img"
+        >
+      
+    </div>
+  </div>
+</div>
+
+<style>
+  .scrollbox {
+    overflow-x: auto; 
+    overflow-y: hidden; 
+    white-space: nowrap; 
+    padding-bottom: 5px; 
+    margin-bottom: 10px;
+  }
+
+  .gallery {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+    padding: 5px 0;
+  }
+
+  .gallery-item {
+    display: flex;
+    gap: 10px; 
+    align-items: center; 
+    flex-wrap: nowrap;
+  }
+
+  .gallery-item img {
+    height: 200px; 
+    width: auto; 
+    max-width: 100%;
+    cursor: zoom-in;  
+  }
+</style>
+
+
+
+
+
+<div class="video-container">
+    <div class="video-item">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/3336_mtPs6E" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-item">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/IIZawvk6qgU" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+<h1 id="fire-all-the-thing">
+  <strong>Fire All The Thing</strong>
+  <a class="heading-link" href="#fire-all-the-thing">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p><a href="https://miunovo.itch.io/fire-all-the-thing"  class="external-link" target="_blank" rel="noopener">Play On Itch.io</a></p>
 <p>This is a top-down 2D shooting game build with <strong>Unity</strong> for <strong>1-Bit Game Jam</strong>. All the game functional structure was implemented, such as player movement and items. <strong>Object pool</strong> was used in generating the flame path for  character. Moreover, it is in <strong>WebGL</strong> build for online playing. <del>(its a very old project, just putting here to show my Unity skill)</del>.</p>
 <p>Ranked 151 overall in 550 submissions.</p>
 
@@ -668,13 +791,14 @@
 
 
 
-<h1 id="__xpbd-cloth-simulation__httpsgithubcomyanggoox-pbd-cloth-simulation">
-  <a href="https://github.com/Yanggoo/X-PBD-Cloth-Simulation"  class="external-link" target="_blank" rel="noopener"><strong>XPBD Cloth Simulation</strong></a>
-  <a class="heading-link" href="#__xpbd-cloth-simulation__httpsgithubcomyanggoox-pbd-cloth-simulation">
+<h1 id="xpbd-cloth-simulation">
+  <strong>XPBD Cloth Simulation</strong>
+  <a class="heading-link" href="#xpbd-cloth-simulation">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
+<p><a href="https://github.com/Yanggoo/X-PBD-Cloth-Simulation"  class="external-link" target="_blank" rel="noopener">GitHub</a></p>
 <p>A <strong>real-time</strong> cloth simulation project using <strong>Extended Position-Based Dynamics (XPBD)</strong>.</p>
 <ul>
 <li>Modular framework with rendering, GUI, and scene management.</li>
@@ -770,22 +894,22 @@
 
 
 
-<h2 id="----recent-projects----">
+<h1 id="-recent-projects-">
   &mdash;-Recent Projects&mdash;-
-  <a class="heading-link" href="#----recent-projects----">
-    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
-    <span class="sr-only">Link to heading</span>
-  </a>
-</h2>
-<h1 id="__personal-game-library__httpsfuchsia-oak-fc0notionsitegames-1426bb49dd0f8183b8dbd367fc49c427pvs4">
-  <a href="https://fuchsia-oak-fc0.notion.site/Games-1426bb49dd0f8183b8dbd367fc49c427?pvs=4"  class="external-link" target="_blank" rel="noopener"><strong>Personal Game Library</strong></a>
-  <a class="heading-link" href="#__personal-game-library__httpsfuchsia-oak-fc0notionsitegames-1426bb49dd0f8183b8dbd367fc49c427pvs4">
+  <a class="heading-link" href="#-recent-projects-">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
+<h1 id="personal-game-library">
+  <strong>Personal Game Library</strong>
+  <a class="heading-link" href="#personal-game-library">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p><a href="https://fuchsia-oak-fc0.notion.site/Games-1426bb49dd0f8183b8dbd367fc49c427?pvs=4"  class="external-link" target="_blank" rel="noopener">Go To Library</a></p>
 <p>A personal game record library recording games I played and my reviews, build with Notion.</p>
-<!-- raw HTML omitted -->
 
 
 
@@ -861,13 +985,14 @@
 
 
 
-<h1 id="__bu88le-mini-game__httpsbrianjiangitchiobu88le">
-  <a href="https://brianjiang.itch.io/bu88le"  class="external-link" target="_blank" rel="noopener"><strong>BU88LE (mini-game)</strong></a>
-  <a class="heading-link" href="#__bu88le-mini-game__httpsbrianjiangitchiobu88le">
+<h1 id="bu88le-mini-game">
+  <strong>BU88LE (mini-game)</strong>
+  <a class="heading-link" href="#bu88le-mini-game">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
+<p><a href="https://brianjiang.itch.io/bu88le"  class="external-link" target="_blank" rel="noopener">Play On Itch.io</a></p>
 <p>An extendable <strong>mini-game</strong> built with <strong>Unity</strong> for <strong>Globle Game Jam 2025</strong>, where players click the screen to blow bubbles and align them with the background image. Pressing the space button captures a photo, generating a similarity percentage. <strong>Signed Distance Fields (SDF)</strong> were used to enable smooth bubble merging. <del>We ate too much brunch during jam..</del></p>
 
 
@@ -957,9 +1082,9 @@
 
 
 
-<h1 id="__dataviz-02__">
+<h1 id="dataviz-02">
   <strong>DataViz 0.2</strong>
-  <a class="heading-link" href="#__dataviz-02__">
+  <a class="heading-link" href="#dataviz-02">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
@@ -968,12 +1093,8 @@
 <figure><img src="/PDV0/Improvement.png">
 </figure>
 
-
-
-    
-    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/cbaRGa0UTos?autoplay=0&controls=1&end=0&loop=0&mute=0&start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"
-      ></iframe>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/cbaRGa0UTos?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
     </div>
 </p>
 <h1 id="nobody-pitch-design-doc">
@@ -1067,7 +1188,6 @@
 
 
 
-<!-- raw HTML omitted -->
 
   </article>
   </section>
@@ -1127,19 +1247,11 @@
   
 
   
-  
-  
-  <script src="/js/slide-toc.js"></script>
-  
-  
 
   
 
 
   
-  
-
-
 
   
 

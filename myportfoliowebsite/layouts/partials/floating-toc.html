@@ -1,0 +1,56 @@
+{{ if and (gt (len (where .Site.RegularPages.ByTitle "Section" .Section)) 0) (ge .WordCount 300) }}
+<div class="toc-toggle">
+    <div class="toc-dashes">
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+    </div>
+    <nav class="toc-list" id="toc-list">
+        {{ .TableOfContents }}
+    </nav>
+</div>
+{{ end }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        updateDashCount();
+        updateActiveLink();
+        window.addEventListener('scroll', updateActiveLink);
+    });
+
+    function updateDashCount() {
+        const tocList = document.getElementById('toc-list');
+        const headingCount = tocList.querySelectorAll('a').length;
+        const dashes = document.querySelectorAll('.dash');
+        const dashContainer = document.querySelector('.toc-dashes');
+        
+        dashContainer.innerHTML = '';
+        for (let i = 0; i < Math.min(headingCount, 5); i++) {
+            const dash = document.createElement('div');
+            dash.className = 'dash';
+            dashContainer.appendChild(dash);
+        }
+    }
+
+    function updateActiveLink() {
+        const links = document.querySelectorAll('.toc-list a');
+        let current = null;
+        
+        document.querySelectorAll('h2, h3').forEach((heading) => {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top <= 150) {
+                current = heading.id;
+            }
+        });
+        
+        links.forEach((link) => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href && href === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+</script>
