@@ -11,7 +11,7 @@ Guess I found it! use shortcode! -->
 # ----Featured Projects----
 # __ScreeIn__
 [Steam](https://store.steampowered.com/app/3810820/ScreeIN/)  
-[Technical Design Summary]({{< ref "screeintechdesign.md" >}}) 
+[Technical Design Summary]({{< relref "screeintechdesign.md" >}}) 
 
 This psychological horror game is built with **UE5**, focusing on **atmospheric environment design** and **immersive mood setting**. Utilizing **UE Sequencer**, the game seamlessly blends cinematic storytelling with gameplay to enhance player immersion.
 
@@ -26,7 +26,9 @@ This psychological horror game is built with **UE5**, focusing on **atmospheric 
   "/PSI/PSI_6.png"
 >}}
 
-{{< youtube EAn3e9ZSjdM>}}
+<!-- {{< youtube EAn3e9ZSjdM>}} -->
+<!-- {{< youtube ILmOSIsdapc>}} -->
+{{ youtube jbIKLNMM8OQ}}
 
 
 
