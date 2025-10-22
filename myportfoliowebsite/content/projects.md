@@ -28,7 +28,7 @@ This psychological horror game is built with **UE5**, focusing on **atmospheric 
 
 <!-- {{< youtube EAn3e9ZSjdM>}} -->
 <!-- {{< youtube ILmOSIsdapc>}} -->
-{{ youtube jbIKLNMM8OQ}}
+{{< youtube jbIKLNMM8OQ>}}
 
 
 
