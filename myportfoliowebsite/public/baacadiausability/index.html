@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Baacadia — Hearing the System · MiunoDev
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Chenjie Zhang">
+<meta name="description" content="
+A Game UX Research case study on Baacadia, USC AGP 2026&rsquo;s third-person audio-driven puzzle game.
+Over seven months I sat behind seventeen playtest sessions, read 497 observations, and watched the same eight problems surface in eight different costumes. This is the story of what they all turned out to be.
+
+
+  The Game
+  
+    
+    Link to heading
+  
+
+
+
+
+Baacadia is a third-person PC puzzle game built by USC&rsquo;s Advanced Games Project 2026. You play a small robot in an alien world, and the verb you use most is listening. You record sounds from the environment, you play them back, and the world responds — vines retreat, sheep gather, jellyfish lift, dead trees flower, doors that look like noise dissolve into silence.">
+<meta name="keywords" content="">
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Baacadia — Hearing the System">
+  <meta name="twitter:description" content="A Game UX Research case study on Baacadia, USC AGP 2026’s third-person audio-driven puzzle game. Over seven months I sat behind seventeen playtest sessions, read 497 observations, and watched the same eight problems surface in eight different costumes. This is the story of what they all turned out to be.
+The GameLink to headingBaacadia is a third-person PC puzzle game built by USC’s Advanced Games Project 2026. You play a small robot in an alien world, and the verb you use most is listening. You record sounds from the environment, you play them back, and the world responds — vines retreat, sheep gather, jellyfish lift, dead trees flower, doors that look like noise dissolve into silence.">
+
+<meta property="og:url" content="http://localhost:1313/baacadiausability/">
+  <meta property="og:site_name" content="MiunoDev">
+  <meta property="og:title" content="Baacadia — Hearing the System">
+  <meta property="og:description" content="A Game UX Research case study on Baacadia, USC AGP 2026’s third-person audio-driven puzzle game. Over seven months I sat behind seventeen playtest sessions, read 497 observations, and watched the same eight problems surface in eight different costumes. This is the story of what they all turned out to be.
+The GameLink to headingBaacadia is a third-person PC puzzle game built by USC’s Advanced Games Project 2026. You play a small robot in an alien world, and the verb you use most is listening. You record sounds from the environment, you play them back, and the world responds — vines retreat, sheep gather, jellyfish lift, dead trees flower, doors that look like noise dissolve into silence.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2026-05-29T12:00:00-07:00">
+    <meta property="article:modified_time" content="2026-05-29T12:00:00-07:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/baacadiausability/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+  
+    
+    <link rel="stylesheet" href="/css/custom.css" media="screen">
+  
+
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+
+
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      MiunoDev
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/projects/">Projects</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/resumee/">Resume</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+    
+        
+<div class="toc-toggle">
+    <div class="toc-dashes">
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+        <div class="dash"></div>
+    </div>
+    <nav class="toc-list" id="toc-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#the-game">The Game</a></li>
+        <li><a href="#what-i-was-trying-to-find-out">What I was trying to find out</a></li>
+        <li><a href="#how-i-investigated-it">How I investigated it</a></li>
+        <li><a href="#the-root-cause-a-broken-feedback-chain-f-01">The root cause: a broken feedback chain (F-01)</a>
+          <ul>
+            <li><a href="#what-that-looks-like-at-the-controller">What that looks like at the controller</a></li>
+          </ul>
+        </li>
+        <li><a href="#how-one-broken-loop-cascaded-into-seven-more">How one broken loop cascaded into seven more</a>
+          <ul>
+            <li><a href="#f-02--the-noise-puzzle-is-illegible-because-the-loop-is-silent">F-02 — The noise puzzle is illegible because the loop is silent</a></li>
+            <li><a href="#f-03--jellyfish-transport-three-mechanics-deep-no-preview">F-03 — Jellyfish transport: three mechanics deep, no preview</a></li>
+            <li><a href="#f-04--goal-and-inventory-model-the-loop-you-cant-see-undoes-the-goal-you-can">F-04 — Goal and inventory model: the loop you can&rsquo;t see undoes the goal you can</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-recommendation-framework">The recommendation framework</a></li>
+        <li><a href="#what-got-fixed--and-the-move-i-didnt-see-coming">What got fixed — and the move I didn&rsquo;t see coming</a>
+          <ul>
+            <li><a href="#fix-1--recording-from-ripple-to-glyph">Fix 1 — Recording: from &ldquo;ripple&rdquo; to glyph</a></li>
+            <li><a href="#fix-2--sound-bank-from-question-mark-to-lexicon">Fix 2 — Sound Bank: from question mark to lexicon</a></li>
+            <li><a href="#fix-3--harsh-noise-three-layers-of-feedback-for-one-mechanic">Fix 3 — Harsh Noise: three layers of feedback for one mechanic</a></li>
+            <li><a href="#fix-4--objective-a-cutscene-that-names-the-goal">Fix 4 — Objective: a cutscene that names the goal</a></li>
+            <li><a href="#what-fixed-means-now">What &ldquo;fixed&rdquo; means now</a></li>
+          </ul>
+        </li>
+        <li><a href="#wrapping-up">Wrapping up</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        updateDashCount();
+        updateActiveLink();
+        window.addEventListener('scroll', updateActiveLink);
+    });
+
+    function updateDashCount() {
+        const tocList = document.getElementById('toc-list');
+        const headingCount = tocList.querySelectorAll('a').length;
+        const dashes = document.querySelectorAll('.dash');
+        const dashContainer = document.querySelector('.toc-dashes');
+        
+        dashContainer.innerHTML = '';
+        for (let i = 0; i < Math.min(headingCount, 5); i++) {
+            const dash = document.createElement('div');
+            dash.className = 'dash';
+            dashContainer.appendChild(dash);
+        }
+    }
+
+    function updateActiveLink() {
+        const links = document.querySelectorAll('.toc-list a');
+        let current = null;
+        
+        document.querySelectorAll('h2, h3').forEach((heading) => {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top <= 150) {
+                current = heading.id;
+            }
+        });
+        
+        links.forEach((link) => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href && href === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+</script>
+    
+
+  <section class="container page">
+  <article>
+    <header>
+      <h1 class="title">
+        <a class="title-link" href="http://localhost:1313/baacadiausability/">
+          Baacadia — Hearing the System
+        </a>
+      </h1>
+    </header>
+    <blockquote>
+<p>A Game UX Research case study on <em>Baacadia</em>, USC AGP 2026&rsquo;s third-person audio-driven puzzle game.
+Over seven months I sat behind seventeen playtest sessions, read 497 observations, and watched the same eight problems surface in eight different costumes. This is the story of what they all turned out to be.</p></blockquote>
+<hr>
+<h2 id="the-game">
+  The Game
+  <a class="heading-link" href="#the-game">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<figure><img src="/BAAC/baacadia-keyart.jpg"
+    alt="Baacadia key art">
+</figure>
+
+<p><em>Baacadia</em> is a third-person PC puzzle game built by USC&rsquo;s Advanced Games Project 2026. You play a small robot in an alien world, and the verb you use most is <strong>listening</strong>. You record sounds from the environment, you play them back, and the world responds — vines retreat, sheep gather, jellyfish lift, dead trees flower, doors that look like noise dissolve into silence.</p>
+<p>It&rsquo;s a beautiful pitch. It&rsquo;s also a UX challenge, though not for the reason you&rsquo;d guess. The story and the tutorials are delivered the way most games deliver them — dialogue boxes and HUD popups, text you can sit with and re-read. The hard part is the layer underneath: the signal that tells you <em>whether your action actually did something</em>. That signal doesn&rsquo;t persist. A sound plays once. A visual response flashes and fades. The channels that explain what to <em>attempt</em> stay on screen; the channel that confirms it <em>worked</em> is a moment you either catch or lose — and when you lose it, there&rsquo;s nothing left to re-read.</p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/9N-_HzB6mGw?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<hr>
+<h2 id="what-i-was-trying-to-find-out">
+  What I was trying to find out
+  <a class="heading-link" href="#what-i-was-trying-to-find-out">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>I joined the project in September 2025. By April 2026, I had been the moderator or analyst on seventeen documented playtest sessions across builds 9-12 through 1.0.2. The team wasn&rsquo;t short on opinions about what was wrong — every internal review meeting produced a fresh list — but the lists kept being <em>different lists</em>. One week the problem was the noise puzzle. The next week the problem was the sheep AI. The next week movement was too slow. The list moved every time the build moved.</p>
+<p>So I came in with four working hypotheses that tried to cut across the moving target:</p>
+<ol>
+<li>Players don&rsquo;t understand the <em>causal chain</em> between recording a sound and seeing the world react.</li>
+<li>Noise spheres serve a double role — POI and obstacle — and players can&rsquo;t reconcile the two.</li>
+<li>The Jellyfish + Waterfall + Assemble chain is three mechanics deep, and three is one too many for a first-time player.</li>
+<li>When the world stops responding, players blame themselves or the game; almost no one blames the <em>feedback</em>.</li>
+</ol>
+<p>The fourth hypothesis is the one that did all the work in the end. I&rsquo;ll come back to it.</p>
+<hr>
+<h2 id="how-i-investigated-it">
+  How I investigated it
+  <a class="heading-link" href="#how-i-investigated-it">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Before the findings, the loop that produced them. As the usability side of the team, my job was to <strong>run the playtest sessions</strong> and turn what happened inside them into something the designers could act on. The method has a name — <strong>Moderated Usability Testing with RITE-style iteration tracking</strong> — but in practice it was a weekly rhythm: brief a player on the current build, let them loose, and moderate by think-aloud, where the player narrates what they&rsquo;re doing and expecting and I only step in once they&rsquo;re stuck past a set threshold.</p>
+<p>Each session became a <strong>playtest report</strong>: the session recording, the specific moments of friction I observed, and a timestamp for every one of them, so any claim could be traced back to the exact frame that produced it. Those moments fed a living <strong>RITE problem sheet</strong> — the running issue table the whole method turns on — which I triaged by severity, handed to the design team with concrete change suggestions, and then re-tested against on the next build. At roughly <strong>two sessions a week</strong>, the corpus added up fast — and that pace is exactly what created the bottleneck the analysis pipeline was built to solve.</p>
+<figure><img src="/BAAC/ai-pipeline.png"
+    alt="The Whisper &#43; FunASR analysis pipeline used to triage 497 observations from 17 sessions.">
+</figure>
+
+<p>Every session produced a screen recording, a webcam track, and a Think-Aloud audio channel. Manually transcribing and triaging all of that on a student schedule was a non-starter, so the later half of the project ran on an AI-assisted ingest. Whisper handled the English passages and FunASR the Mandarin sessions; the transcripts were time-aligned to gameplay events, merged with the session metrics, and passed to an LLM for a first pass — clustering recurring complaints, surfacing candidate problems, drafting severity guesses. I then reviewed and corrected every one of those by hand before it reached the RITE sheet. The model proposes; the researcher disposes. That single change cut analysis time by roughly <strong>70%</strong>, and is the only reason a corpus of <strong>497 granular observations and 35 RITE problem rows</strong> stayed sortable inside a single graduate student&rsquo;s free hours.</p>
+<p>I scored everything against a four-tier severity rubric (Critical / High / Medium / Low) and a six-category tag (Functional, Visual, Accessibility, UX, Performance, Content). The rubric matters because the loudest problem is not always the most severe — a Critical issue is one that blocks progress or breaks the core loop; a Medium is one with a workaround. Without that distinction, the team would patch the loudest complaints first and leave the load-bearing ones for the post-mortem.</p>
+<p>By April the matrix looked like this:</p>
+<figure><img src="/BAAC/severity-heatmap.svg"
+    alt="Severity × Category heatmap. UX rows: F-01 Critical, F-02 High, F-05 &#43; F-07 Medium. Functional: F-03 High, F-06 Medium. Content: F-04 High. Accessibility: F-08 Low.">
+</figure>
+
+<p>Eight findings. One Critical. Three High. Anyone can produce a list like this — the job is figuring out which problem is doing the work. The Critical is the one I want to talk about, because everything else turned out to be downstream of it.</p>
+<hr>
+<h2 id="the-root-cause-a-broken-feedback-chain-f-01">
+  The root cause: a broken feedback chain (F-01)
+  <a class="heading-link" href="#the-root-cause-a-broken-feedback-chain-f-01">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Here is the loop <em>Baacadia</em> is asking a first-time player to internalize:</p>
+<div class="mermaid">
+flowchart LR
+    A["Approach a<br/>sound source"] --> B["Record<br/>the sound"]
+    B --> C["Hold it in<br/>your sound slot"]
+    C --> D["Play it near<br/>a target"]
+    D --> E["Watch the<br/>target respond"]
+    E --> A
+    classDef stg fill:#2d5f8a,stroke:#1b3d5a,color:#ffffff
+    class A,B,C,D,E stg
+
+</div>
+
+<p>Five stages. Each stage is supposed to produce a state change the player can see, hear, or feel. The loop is the game&rsquo;s grammar — every puzzle is a sentence written in this grammar, every tutorial is a lesson on how to read it.</p>
+<p>What players actually experienced, observed across builds 9-12 through 1.0.2:</p>
+<ul>
+<li><strong>Stage A → B (Approach → Record):</strong> Players couldn&rsquo;t tell when they were in range. They held the record key in places where nothing was recordable and released the key in places where everything was. <em>&ldquo;Did it record?&rdquo;</em> — <code>obs_0001</code>, <code>obs_0044</code>.</li>
+<li><strong>Stage B → C (Record → Hold):</strong> No persistent indicator showed what sound was currently held. Players forgot what they had. Some thought every recording overwrote the slot; some thought sounds accumulated. <em>&ldquo;What did I just record?&rdquo;</em> — <code>obs_0063</code>, <code>obs_0240</code>.</li>
+<li><strong>Stage C → D (Hold → Play):</strong> The play action produced a sound effect, but the same sound effect played whether the target was valid, invalid, or absent. Players couldn&rsquo;t distinguish &ldquo;I played the wrong sound&rdquo; from &ldquo;I played the right sound at the wrong place&rdquo; from &ldquo;nothing here responds to anything.&rdquo; — <code>obs_0070</code>, <code>obs_0308</code>.</li>
+<li><strong>Stage D → E (Play → Respond):</strong> The world&rsquo;s responses were subtle. A vine retreating two inches read as &ldquo;nothing happened&rdquo; to players still parsing whether they had recorded anything in the first place. <em>&ldquo;I used the new sound but nothing happened.&rdquo;</em></li>
+<li><strong>Stage E → A (Respond → Re-approach):</strong> Because the previous four stages had failed to produce a clean read, players could not form a hypothesis about what to try next. The loop never closed; they tried <em>everything</em>.</li>
+</ul>
+<p>When the loop never closes, the player&rsquo;s working theory of the game collapses. They stop reasoning and start guessing. This is what Critical severity means in a UX rubric: not &ldquo;this crashes the game,&rdquo; but &ldquo;this makes the game uninterpretable.&rdquo;</p>
+<h3 id="what-that-looks-like-at-the-controller">
+  What that looks like at the controller
+  <a class="heading-link" href="#what-that-looks-like-at-the-controller">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>This is one player&rsquo;s overlay, captured roughly thirty seconds into the first Noise Cancel puzzle:</p>
+<figure><img src="/BAAC/player-confusion-noise.png"
+    alt="A first-time player generating four competing theories simultaneously: push the sheep, make any sound, stand on the button, use a collected sound."><figcaption>
+      <p>One player. Four mutually exclusive theories. Zero feedback to rule any of them out.</p>
+    </figcaption>
+</figure>
+
+<p>This is not a player who is <em>stuck</em>. A stuck player has one wrong theory and runs it into a wall. This is a player with four simultaneous theories and no way to test any of them, because the feedback chain that would invalidate three of them has gone silent. That&rsquo;s the difference F-01 produces, and it&rsquo;s what the rest of the findings inherit.</p>
+<hr>
+<h2 id="how-one-broken-loop-cascaded-into-seven-more">
+  How one broken loop cascaded into seven more
+  <a class="heading-link" href="#how-one-broken-loop-cascaded-into-seven-more">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Once I had the chain diagram, I went back through the other seven findings and asked: <em>does this finding survive in a world where F-01 is fixed?</em> Most of them shrink. Three of them shrink dramatically.</p>
+<div class="mermaid">
+flowchart TD
+    F01["F-01 Critical<br/>Broken feedback chain"]:::crit
+    F02["F-02 High<br/>Noise puzzle illegible"]:::high
+    F03["F-03 High<br/>Jellyfish transport opaque"]:::high
+    F04["F-04 High<br/>Goal and inventory absent"]:::high
+    F06["F-06 Medium<br/>Sheep response unreadable"]:::med
+    F07["F-07 Medium<br/>Bird tutorial doesn't land"]:::med
+    F08["F-08 Low<br/>Input swap missed"]:::low
+    F05["F-05 Fixed<br/>Movement pacing<br/>(independent)"]:::fixed
+    F01 --> F02
+    F01 --> F03
+    F01 --> F04
+    F01 -.-> F06
+    F01 -.-> F07
+    F01 -.-> F08
+    classDef crit  fill:#c0392b,stroke:#7d1f15,color:#ffffff
+    classDef high  fill:#e67e22,stroke:#a05415,color:#ffffff
+    classDef med   fill:#f1c40f,stroke:#a88c0a,color:#1a1a1a
+    classDef low   fill:#16a085,stroke:#0e6e5d,color:#ffffff
+    classDef fixed fill:#7f8c8d,stroke:#4f5859,color:#ffffff
+
+</div>
+
+<p>Three of them are worth opening up.</p>
+<h3 id="f-02--the-noise-puzzle-is-illegible-because-the-loop-is-silent">
+  F-02 — The noise puzzle is illegible because the loop is silent
+  <a class="heading-link" href="#f-02--the-noise-puzzle-is-illegible-because-the-loop-is-silent">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The first Noise Cancel area is supposed to teach: <em>SING dissolves Noise</em>. The screenshot above is the moment that lesson is supposed to land. Instead the player is generating four hypotheses because the feedback channel that would confirm or deny any of them — the audio response of the noise sphere being affected by the sung sound — is too quiet, too brief, and indistinguishable from ambient. Of eight players I watched first-encounter this puzzle, <strong>seven</strong> tried at least three wrong strategies before the right one, and the average time-to-correct-action was over a minute.</p>
+<p>Note what&rsquo;s <em>not</em> the problem: the puzzle&rsquo;s logic. SING-affects-Noise is a clean rule. The problem is that Stage D → E of the feedback loop is broken specifically for the SING/Noise interaction, so even when the player accidentally does the right thing, they don&rsquo;t <em>see</em> that they&rsquo;ve done the right thing, and they move on to the next wrong theory.</p>
+<figure><img src="/BAAC/harshnoise-before.png"
+    alt="The pre-fix first-encounter Noise Cancel area: a player character, a dark noise box, a yellow vine-door barrier, and a sheep standing on the structure. No shader on the world, no glow on the button, no visible cue that any of these objects are part of a puzzle."><figcaption>
+      <p>The pre-fix first encounter, framed roughly as the player meets it. A noise box. A button. A sheep. A barrier. No shader on the world, no glow on the button, no signal that any one of these objects is the answer. This is the field of view that produced the four-theories-at-once overlay from earlier in the article.</p>
+    </figcaption>
+</figure>
+
+<h3 id="f-03--jellyfish-transport-three-mechanics-deep-no-preview">
+  F-03 — Jellyfish transport: three mechanics deep, no preview
+  <a class="heading-link" href="#f-03--jellyfish-transport-three-mechanics-deep-no-preview">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The Jellyfish + Waterfall + Sheep Transport sequence asks the player to internalize five rules in a row: <em>players can bounce on jellyfish, sheep can be caught by jellyfish, waterfalls lift jellyfish upward, the Assemble sound releases captured sheep, released sheep teleport to the nearest valid surface.</em> Two of those — &ldquo;nearest valid surface&rdquo; and &ldquo;Assemble releases&rdquo; — have no visible preview. Players release sheep into a void and watch them appear on a platform they did not predict. Some players began to suspect a softlock. Most just stopped trusting the mechanic.</p>
+<p>Without F-01, even a correct release looks like a roll of the dice. <em>With</em> F-01 — with a visible landing marker and a &ldquo;release-blocked&rdquo; reaction when the destination is invalid — the same mechanic becomes a tool. Same rules. Different feedback. Different game.</p>
+<p>The three rules players are being asked to internalize, in order:</p>
+<figure><img src="/BAAC/jellyfish-grab.png"
+    alt="A jellyfish floating over water with a sheep stuck to its underside. Player and two other sheep on the bank watching."><figcaption>
+      <p><strong>Rule 1 — Jellyfish capture sheep.</strong> Visible enough. Players see this happen and accept it as a mechanic. So far the chain is one link long.</p>
+    </figcaption>
+</figure>
+
+<figure><img src="/BAAC/jellyfish-waterfall.png"
+    alt="A jellyfish inside a sound-bubble dome rising upward near a waterfall mechanism. Player and sheep watch from the foreground."><figcaption>
+      <p><strong>Rule 2 — Waterfall sounds lift the jellyfish.</strong> This is the second sound the player needs to know about, played at the right object, with no preview of how high or how far the jellyfish will go.</p>
+    </figcaption>
+</figure>
+
+<figure><img src="/BAAC/jellyfish-assemble.png"
+    alt="The player at the center of a circular Assemble sound wave with white wavy lines radiating outward, near a jellyfish, with the sheep being extracted."><figcaption>
+      <p><strong>Rule 3 — Assemble releases captured sheep.</strong> The third sound, with no preview of where the released sheep will land, and no visible blocker when the destination is invalid. This is the link in the chain where players begin to suspect a softlock.</p>
+    </figcaption>
+</figure>
+
+<p>Three mechanics deep. Three different sounds. Zero landing previews. The chain is internally consistent, but for a first-time player it is just too many simultaneous moving parts to learn before any of them produce a confirming read.</p>
+<h3 id="f-04--goal-and-inventory-model-the-loop-you-cant-see-undoes-the-goal-you-can">
+  F-04 — Goal and inventory model: the loop you can&rsquo;t see undoes the goal you can
+  <a class="heading-link" href="#f-04--goal-and-inventory-model-the-loop-you-cant-see-undoes-the-goal-you-can">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>When I asked players to describe what they thought their objective was, in the first twenty minutes of play, I got: &ldquo;collect sheep,&rdquo; &ldquo;follow the path,&rdquo; &ldquo;save the sheep,&rdquo; &ldquo;trigger the story,&rdquo; &ldquo;find more sounds,&rdquo; &ldquo;I don&rsquo;t know.&rdquo; Six different mental models from a sample where every player had reached the same point in the same build.</p>
+<p>A reasonable instinct is to blame the <em>objective UI</em> — there isn&rsquo;t one. But the reason there isn&rsquo;t one is that the designers expected the audio loop to teach the goal: each successful Record → Play → Respond cycle was supposed to confirm &ldquo;this is a tool, you are making progress.&rdquo; When the loop doesn&rsquo;t close, the goal never accumulates. F-04 is F-01 wearing a different costume.</p>
+<p>The follow-on bug here is more concrete. There is a &ldquo;collection panel&rdquo; UI that shows previously-discovered sounds. Several players opened it and tried to <strong>switch sounds from it</strong> — they had read it as a sound inventory, not a journal. That&rsquo;s a labeling and affordance issue, but it&rsquo;s also a symptom of the same root: the player is looking for the slot indicator the HUD never gave them.</p>
+<figure><img src="/BAAC/soundbank-before.png"
+    alt="The pre-fix Sound Bank radial UI showing text labels Sing and Assemble, with a question mark overlay indicating player confusion."><figcaption>
+      <p>The pre-fix sound bank — a radial wheel with sound <em>names</em> as text. Players who hadn&rsquo;t memorized which sound did what looked at this and shrugged. (The question mark in the screenshot is mine, marking the player-confusion moment in the source data.)</p>
+    </figcaption>
+</figure>
+
+<hr>
+<h2 id="the-recommendation-framework">
+  The recommendation framework
+  <a class="heading-link" href="#the-recommendation-framework">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>The full recommendation set is seven items long. The three that matter for this narrative — REC-01, REC-02, REC-03 — all attack the same target from different angles, which is what you&rsquo;d expect if the underlying problem is a single broken chain.</p>
+<p><strong>REC-01 — Unify the Record → Play → See Effect chain.</strong> A persistent record-ready indicator. A success toast or icon the moment a sound is captured. A current-sound slot the player can see at all times. A waveform or pulse during playback. A directional highlight on the affected object during a successful play. A short failure response when the play hits nothing or the wrong target. Five stages, five state changes, five reads. Short-term effort (1-3 days); the materials largely exist and need consolidation, not invention.</p>
+<p><strong>REC-02 — Scaffold the first Noise Cancel encounter.</strong> Demonstrate SING-affects-Noise once, in a low-stakes context, before requiring the player to use it. Then on the gated puzzle: a visible directional decay on the noise surface when SING plays, an audio filter shift the player can hear, a progress response. When the player plays the <em>wrong</em> sound, give a brief invalid-input response so they know the system received the input but it had no effect. This is the same chain as REC-01 — Stage D → E specifically — applied to a single mechanic.</p>
+<p><strong>REC-03 — Landing previews and softlock protection on Jellyfish release.</strong> Show the player where the sheep will land before they release. Block release into invalid NavMesh. Teach Jellyfish&rsquo;s three rules sequentially, not simultaneously. Long-term effort (&gt;3 days) because it needs new tech, not just consolidation.</p>
+<p>The pattern across the three: <strong>make every stage of the feedback loop legible, then teach mechanics one chain at a time.</strong> The next four recommendations — sheep response cues, bird tutorial re-staging, persistent input widget, goal/journal information architecture — are the same idea applied to lower-severity surfaces.</p>
+<hr>
+<h2 id="what-got-fixed--and-the-move-i-didnt-see-coming">
+  What got fixed — and the move I didn&rsquo;t see coming
+  <a class="heading-link" href="#what-got-fixed--and-the-move-i-didnt-see-coming">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>By the late-May build, the team had shipped against F-01, F-02 and F-04. Three findings, four targeted design moves — and one of those moves was the elegant move of the cycle, and not one I had on my recommendation list.</p>
+<p>I had recommended unifying the Record → Play → See Effect <em>chain</em> by giving each of its five stages its own legible state change. The team did that. But they also did something I didn&rsquo;t anticipate: they introduced a <strong>visual vocabulary</strong>. Every recordable sound now has a unique icon, and the same icon travels with the sound through every stage of the loop.</p>
+<ul>
+<li>When the player is <strong>in range</strong> of a sound source, the source&rsquo;s icon appears above it.</li>
+<li>When a sound is <strong>held</strong>, its icon appears in the sound bank UI.</li>
+<li>When a puzzle <strong>requires</strong> a specific sound, that sound&rsquo;s icon is placed somewhere visible near the puzzle.</li>
+</ul>
+<p>It&rsquo;s a UI move, but it&rsquo;s also a knowledge-architecture move. My recommendation focused on teaching the <em>chain</em>. The team taught the <strong>lexicon</strong> — the same currency carries information across recording, holding, applying, and learning a new puzzle. The chain still has to work, but the icon system makes its outputs <em>interpretable</em> in a way that any amount of prose tutorial copy cannot.</p>
+<p>I want to flag this honestly, because it&rsquo;s also the thing I want to remember from this project: research can name a problem precisely without imagining the shape of the best fix. The chain diagnosis was correct; the icon system was the design team&rsquo;s contribution, and it carries more load than my own recommendation would have.</p>
+<h3 id="fix-1--recording-from-ripple-to-glyph">
+  Fix 1 — Recording: from &ldquo;ripple&rdquo; to glyph
+  <a class="heading-link" href="#fix-1--recording-from-ripple-to-glyph">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>In early builds, the only signal that a sound was recordable was a small ripple effect at the source. Players missed it. The tutorial copy assumed the ripple was unmissable; the observation data said it was missed in roughly half of first encounters.</p>
+<figure><img src="/BAAC/recording-before.png"
+    alt="The pre-fix recording feedback — a faint ripple above a green sound source, requiring a red box and arrow annotation to even be visible."><figcaption>
+      <p><strong>Before</strong> — the only in-range cue was a faint ripple above the sound source. It needed an annotation arrow to be visible in documentation, which is most of what you need to know about it.</p>
+    </figcaption>
+</figure>
+
+<figure><img src="/BAAC/recording-fix.png"
+    alt="The post-fix recording state — a sound-specific glyph floats above each recordable source. Tutorial text on the right explains that the glyph indicates recording range."><figcaption>
+      <p><strong>After</strong> — a sound-specific glyph appears above the source when the player is in range, paired with a single contextual line that names both the affordance and the action key. Stage A → B is now a one-look read.</p>
+    </figcaption>
+</figure>
+
+<p>The cost is one new visual element. The gain is that the first two stages of the feedback loop — <em>am I in range, did I record</em> — collapse into a single, scannable cue.</p>
+<h3 id="fix-2--sound-bank-from-question-mark-to-lexicon">
+  Fix 2 — Sound Bank: from question mark to lexicon
+  <a class="heading-link" href="#fix-2--sound-bank-from-question-mark-to-lexicon">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The collection panel had been the highest-stakes UI in the game and the one with the weakest read. The pre-fix version is the screenshot above with the question mark on it. The post-fix version replaces the text labels with the same glyphs used over sound sources.</p>
+<figure><img src="/BAAC/soundbank-fix.png"
+    alt="The post-fix Sound Bank UI showing two icon glyphs in a dark radial menu — a sprout-like shape on top and a music-note in a circle on the right."><figcaption>
+      <p><strong>After</strong> — icons replace text. The same glyphs that appear above sound sources appear in the bank, and (critically) near puzzles that require those sounds. The radial wheel went from a vocabulary test to a tool.</p>
+    </figcaption>
+</figure>
+
+<p>This is the move that quietly resolves F-04. The mental model players were trying to apply — <em>&ldquo;this looks like a sound switcher, can I switch sounds with it?&rdquo;</em> — is now exactly the model the UI supports.</p>
+<h3 id="fix-3--harsh-noise-three-layers-of-feedback-for-one-mechanic">
+  Fix 3 — Harsh Noise: three layers of feedback for one mechanic
+  <a class="heading-link" href="#fix-3--harsh-noise-three-layers-of-feedback-for-one-mechanic">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The first-encounter Noise Cancel puzzle was the picture I led with — four theories at once, no feedback channel that could rule any of them out. The shipped fix is three separate layers of feedback applied to the same mechanic, each one addressing one of the candidate theories from the original screenshot.</p>
+<figure><img src="/BAAC/harshnoise-fix-shader.png"
+    alt="The Harsh Noise area with a heavy pixelated distortion shader covering the world and the sheep, making everything look unstable and dissolved."><figcaption>
+      <p><strong>Layer 1 — The problem is visible.</strong> A pixelated distortion shader is applied to the world while the noise is present. The sheep is distorted. The trees are distorted. The player can now <em>see</em> what they&rsquo;re being asked to clear.</p>
+    </figcaption>
+</figure>
+
+<figure><img src="/BAAC/harshnoise-fix-button.png"
+    alt="The same Harsh Noise scene, now with the player standing on a button on the ground that glows a warm yellow under their feet."><figcaption>
+      <p><strong>Layer 2 — Standing on the button is acknowledged.</strong> The button glows when occupied. This had been the second of the four player theories; previously it produced no visible response and was indistinguishable from doing nothing.</p>
+    </figcaption>
+</figure>
+
+<figure><img src="/BAAC/harshnoise-fix-sing.png"
+    alt="A bright green bubble of clarity expanding around the player, light streams radiating outward, the surrounding world clean and crisp where moments ago it was distorted."><figcaption>
+      <p><strong>Layer 3 — Singing is the answer, and the answer reads loudly.</strong> When the player plays SING, a bright bubble of clarity expands around them and the noise distortion retreats. The world stops dissolving <em>only while the player sings</em>. This is the first time the puzzle&rsquo;s solution produces a feedback signal large enough to dominate the screen.</p>
+    </figcaption>
+</figure>
+
+<p>A first-time player encountering this puzzle today still generates the same four candidate theories the original screenshot recorded. The difference is that only one of them survives the first ten seconds of probing — because three of the four channels now talk back.</p>
+<h3 id="fix-4--objective-a-cutscene-that-names-the-goal">
+  Fix 4 — Objective: a cutscene that names the goal
+  <a class="heading-link" href="#fix-4--objective-a-cutscene-that-names-the-goal">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The icon-as-vocabulary system fixed the F-04 question <em>what does this UI do?</em> It left untouched the older F-04 question: <em>what am I trying to do?</em> The six pre-fix mental models I had heard from playtesters — <em>collect sheep, follow the path, save the sheep, trigger the story, find more sounds, I don&rsquo;t know</em> — were generated by the absence of a stated long-term objective. The icon system gives players a parseable inventory, but an inventory presupposes a goal, and the goal had never been spoken aloud.</p>
+<p>The shipped fix is two letterboxed cutscene beats that name the objective explicitly, and stage the naming as a moment in the world.</p>
+<figure><img src="/BAAC/objective-cutscene-guide.png"
+    alt="A letterboxed cutscene frame: the player character and a small white guide sheep stand in a noise-distorted area. Text reads &#39;...SEARCHING FOR OBJECTIVE...&#39;"><figcaption>
+      <p><strong>Beat 1 — &hellip;searching for objective&hellip;</strong> The cutscene opens by <em>naming the problem the player is having</em>. Players who had been asking <em>what am I doing?</em> now see the game asking it back, in the same noise-distorted space they were stuck in.</p>
+    </figcaption>
+</figure>
+
+<figure><img src="/BAAC/objective-cutscene-sheep.png"
+    alt="A letterboxed cutscene frame in a clear, vibrant area. Text reads &#39;OBJECTIVE FOUND — RECORD SOUNDS TO FILL OUT YOUR COMPENDIUM&#39;."><figcaption>
+      <p><strong>Beat 2 — Objective found.</strong> The answer arrives in eight words and a verb: <em>record sounds to fill out your compendium</em>. The compendium is the icon-organized sound bank from Fix 2. The two fixes land on the same target from different sides.</p>
+    </figcaption>
+</figure>
+
+<p>What I find clever about this move, beyond its directness, is that it <strong>resolves a UX problem with a narrative gesture rather than a UI one</strong>. F-04 was diagnosed as a missing-goal-model issue; the easiest patch would have been to add a quest-log line on the HUD. Instead the team turned the missing model into a cutscene about the player searching for it. That works on multiple registers at once: it gives the player an explicit goal, it makes the goal-confusion <em>part of the story</em>, and it sets up the compendium — and by extension the icon-driven sound bank — as the artifact the player is filling out.</p>
+<p>The pair of fixes — icon vocabulary plus objective-naming cutscene — together cover F-04 in both its UI and narrative dimensions. The six pre-fix mental models collapse to one: <em>I am recording sounds to fill out a compendium of what this world can do.</em></p>
+<h3 id="what-fixed-means-now">
+  What &ldquo;fixed&rdquo; means now
+  <a class="heading-link" href="#what-fixed-means-now">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The honest report card is substantially better than the April mid-cycle read:</p>
+<ul>
+<li><strong>F-05 (movement)</strong> — Fully resolved; holds in latest builds.</li>
+<li><strong>F-04 (Goal + Sound Bank model)</strong> — Fully fixed via a two-front change. The icon vocabulary turns the sound bank into a usable switcher (covering the UI half), and the two-beat objective cutscene names the long-term goal in player-facing words (covering the narrative half). The six pre-fix mental models collapse to one.</li>
+<li><strong>F-01 (recording feedback)</strong> — Substantially fixed via the glyph + tutorial system at Stage A → B. Stage D → E still wants verification on novel puzzles, but the foundational vocabulary is in.</li>
+<li><strong>F-02 (Harsh Noise)</strong> — Substantially fixed via the three-layer feedback above. Wants a fresh-player session to confirm time-to-correct-action has actually moved.</li>
+<li><strong>F-03 (Jellyfish transport)</strong> — Still open. Needs the landing-marker mechanic and the staged teaching of its three sub-rules. Also still lacks a RITE row, which means it still lacks an owner.</li>
+<li><strong>F-06 / F-07 / F-08</strong> — Sheep response cues are partially helped by the new icon vocabulary; pressure-plate occupancy, bird tutorial re-staging, and the persistent input widget remain open.</li>
+</ul>
+<p>The thing I want to flag, more for my own next project than for this article, is that <strong>the icon system was not on my recommendation list.</strong> My diagnosis of the chain was right; my imagination for what could fix it was narrower than the design team&rsquo;s. UX research can supply the problem statement clean. The design team supplies the shape of the answer. When those two snap together — as they did on this cycle — you get the kind of fix that resolves three findings with one shipped feature, and the project skips a small mountain of patches that would never have aggregated to the same result.</p>
+<hr>
+<h2 id="wrapping-up">
+  Wrapping up
+  <a class="heading-link" href="#wrapping-up">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>A few things I want to be honest about.</p>
+<p>I&rsquo;m not certain my root-cause framing is the only valid one. A different researcher could plausibly thread F-04 (goal and inventory) as the root and treat F-01 as downstream — <em>players don&rsquo;t read the feedback because they don&rsquo;t know what to look for</em>. I think the chain interpretation has more explanatory power across the observation corpus, but I&rsquo;d want a controlled comparison before I&rsquo;d defend it harder than that. UX research is full of stories that explain the data, and the test of a story is whether the next build&rsquo;s data fits it.</p>
+<p>I&rsquo;m also aware that several of the most interesting questions — does the player who can name the held sound also describe the goal correctly? does fixing Stage D → E reduce <em>softlock perception</em> in Jellyfish? — would need to be answered against a real telemetry channel, not a Think-Aloud transcript. The next iteration of my pipeline is about wiring those event streams in.</p>
+<p>There&rsquo;s a deeper problem underneath all of this that I don&rsquo;t think we&rsquo;ve solved yet, and I want to name it plainly because it&rsquo;s the thing I&rsquo;ll carry furthest. Across seven months we kept finding and patching the places where a player&rsquo;s mental model failed to form. But the model itself — the player&rsquo;s working knowledge of what this world can do and how to ask it of the system — is still a fragile thing to build. It gets assembled from fragments: a cutscene here, a feedback flash there, one well-timed glyph over a sound source. Miss any single fragment — zone out for two seconds, skip past a cutscene, fail to notice the button glow — and the <em>next</em> model often doesn&rsquo;t form either, because it was supposed to be built on the one that got missed. The knowledge base, as it stands, is mostly a single thread; a distracted player can drop it and not get it back.</p>
+<p>A genuinely robust experience wouldn&rsquo;t depend on any one fragment landing. It would teach the same thing from several angles at once, and it would let that knowledge be <em>re-picked-up</em> at any time — so a player who looked away for two seconds, or who put the game down for two days and came back, could reconstruct where they are without being punished for the gap. The icon-as-vocabulary system is the first real step in that direction: the same glyph saying the same thing at the source, in the bank, and at the puzzle is exactly this kind of redundancy. But that&rsquo;s one mechanic on one axis of the game. Turning the whole knowledge base from a single thread into a mesh — resilient to missed fragments, resumable after a break — is the part we&rsquo;re still working on, and the part I think separates a game that <em>can</em> be understood from one that reliably <em>is</em>.</p>
+<p>The thing I would take to the next project, more than any specific finding, is the discipline of the chain. When an audio-driven puzzle game stops being legible, the instinct is to add language: a tooltip, a tutorial card, a quest log. The work I&rsquo;m proudest of on <em>Baacadia</em> is the case for doing the opposite — for treating system feedback as the primary text of the game, and only reaching for words after the loop already speaks.</p>
+<hr>
+
+  </article>
+</section>
+
+  
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2026
+     Chenjie Zhang 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"
+    integrity="sha256-QdTG1YTLLTwD3b95jLqFxpQX9uYuJMNAtVZgwKX4oYU=" crossorigin="anonymous"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

@@ -9,6 +9,9 @@ showSlideToc = true
 
 Guess I found it! use shortcode! -->
 # ----Featured Projects----
+
+
+
 # __ScreeIn__
 [Steam](https://store.steampowered.com/app/3810820/ScreeIN/)  
 [Technical Design Summary]({{< relref "screeintechdesign.md" >}}) 
@@ -52,23 +55,13 @@ This is an escape room game build with **UE5**, alonged with 4 puzzles consist w
 {{< youtube-dual "3336_mtPs6E" "IIZawvk6qgU" >}}
 
 
-# __Fire All The Thing__
-[Play On Itch.io](https://miunovo.itch.io/fire-all-the-thing)
+# __Baacadia — Game UX Research__
+[Case Study]({{< relref "baacadiausability.md" >}})
 
-This is a top-down 2D shooting game build with **Unity** for **1-Bit Game Jam**. All the game functional structure was implemented, such as player movement and items. **Object pool** was used in generating the flame path for  character. Moreover, it is in **WebGL** build for online playing. ~~(its a very old project, just putting here to show my Unity skill)~~. 
+A seven-month Game User Research case study on **Baacadia** (USC AGP 2026), a third-person audio-driven puzzle game. Across **17 playtest sessions**, **497 observations**, and **35 RITE problem rows**, I traced eight surface findings to a single root cause — a broken **Record → Play → See Effect** feedback chain — and produced a recommendation framework the team is now shipping against. Methods: **Moderated Usability Testing**, RITE iteration tracking, and a Whisper + FunASR AI-assisted analysis pipeline that cut transcription/triage time by ~70%.
 
-Ranked 151 overall in 550 submissions.
 
-{{< gallery
-	"/PFAT/FAT_0.gif"
-	"/PFAT/FAT_1.gif"
-  "/PFAT/FAT_2.gif"
->}}
-
-{{< gallery
-	"/PFAT/FAT_3.gif"
-	"/PFAT/Result.png"
->}}
+{{< figure src="/BAAC/baacadia-keyart.jpg" >}}
 
 
 # __XPBD Cloth Simulation__
@@ -86,7 +79,23 @@ A **real-time** cloth simulation project using **Extended Position-Based Dynamic
 	"/XPBDCS/PBDCS3.gif"
 >}}
 
+# __Fire All The Thing__
+[Play On Itch.io](https://miunovo.itch.io/fire-all-the-thing)
 
+This is a top-down 2D shooting game build with **Unity** for **1-Bit Game Jam**. All the game functional structure was implemented, such as player movement and items. **Object pool** was used in generating the flame path for  character. Moreover, it is in **WebGL** build for online playing. ~~(its a very old project, just putting here to show my Unity skill)~~. 
+
+Ranked 151 overall in 550 submissions.
+
+{{< gallery
+	"/PFAT/FAT_0.gif"
+	"/PFAT/FAT_1.gif"
+  "/PFAT/FAT_2.gif"
+>}}
+
+{{< gallery
+	"/PFAT/FAT_3.gif"
+	"/PFAT/Result.png"
+>}}
 
 # ----Recent Projects----
 
