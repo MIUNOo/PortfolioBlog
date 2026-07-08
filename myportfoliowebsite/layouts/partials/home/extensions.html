@@ -1,0 +1,66 @@
+<nav class="home-nav" aria-label="Main navigation">
+  {{ range sort .Site.Menus.main }}
+  <a class="home-nav-link" href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+  {{ end }}
+</nav>
+<style>
+  /* Homepage-only: the menu lives centered under the identity block, where
+     tearing the leather naturally reveals it. The top bar is hidden here
+     (all other pages keep it). */
+  .navigation {
+    display: none;
+  }
+  /* the theme's .centered is a flex row; stack identity + nav vertically */
+  .content .container.centered {
+    flex-direction: column;
+  }
+  .home-nav {
+    margin-top: 3.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 3.4rem;
+  }
+  .home-nav-link {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.3em 0.15em;
+    border-bottom: 2px solid rgba(190, 150, 80, 0.6);
+    transition: border-color 0.2s ease;
+  }
+  /* same foreground as the social icons: #212121 light / #dadada dark;
+     cover :link/:visited plus all three colorscheme modes */
+  .content a.home-nav-link,
+  .content a.home-nav-link:link,
+  .content a.home-nav-link:visited {
+    color: #212121;
+  }
+  body.colorscheme-dark .content a.home-nav-link,
+  body.colorscheme-dark .content a.home-nav-link:link,
+  body.colorscheme-dark .content a.home-nav-link:visited {
+    color: #dadada;
+  }
+  @media (prefers-color-scheme: dark) {
+    body.colorscheme-auto .content a.home-nav-link,
+    body.colorscheme-auto .content a.home-nav-link:link,
+    body.colorscheme-auto .content a.home-nav-link:visited {
+      color: #dadada;
+    }
+  }
+  .home-nav-link:hover,
+  .home-nav-link:focus-visible {
+    border-bottom-color: currentColor;
+    text-decoration: none;
+  }
+  @media (max-width: 560px) {
+    .home-nav {
+      gap: 0.6rem 2.2rem;
+    }
+    .home-nav-link {
+      font-size: 1.5rem;
+    }
+  }
+</style>

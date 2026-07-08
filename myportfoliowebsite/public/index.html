@@ -188,7 +188,75 @@
 
   </div>
 
+  <nav class="home-nav" aria-label="Main navigation">
   
+  <a class="home-nav-link" href="/about/">About</a>
+  
+  <a class="home-nav-link" href="/projects/">Projects</a>
+  
+  <a class="home-nav-link" href="/resumee/">Resume</a>
+  
+  <a class="home-nav-link" href="/contact/">Contact me</a>
+  
+</nav>
+<style>
+   
+  .navigation {
+    display: none;
+  }
+   
+  .content .container.centered {
+    flex-direction: column;
+  }
+  .home-nav {
+    margin-top: 3.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 3.4rem;
+  }
+  .home-nav-link {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.3em 0.15em;
+    border-bottom: 2px solid rgba(190, 150, 80, 0.6);
+    transition: border-color 0.2s ease;
+  }
+   
+  .content a.home-nav-link,
+  .content a.home-nav-link:link,
+  .content a.home-nav-link:visited {
+    color: #212121;
+  }
+  body.colorscheme-dark .content a.home-nav-link,
+  body.colorscheme-dark .content a.home-nav-link:link,
+  body.colorscheme-dark .content a.home-nav-link:visited {
+    color: #dadada;
+  }
+  @media (prefers-color-scheme: dark) {
+    body.colorscheme-auto .content a.home-nav-link,
+    body.colorscheme-auto .content a.home-nav-link:link,
+    body.colorscheme-auto .content a.home-nav-link:visited {
+      color: #dadada;
+    }
+  }
+  .home-nav-link:hover,
+  .home-nav-link:focus-visible {
+    border-bottom-color: currentColor;
+    text-decoration: none;
+  }
+  @media (max-width: 560px) {
+    .home-nav {
+      gap: 0.6rem 2.2rem;
+    }
+    .home-nav-link {
+      font-size: 1.5rem;
+    }
+  }
+</style>
 
 </section>
 
@@ -360,7 +428,7 @@
     window.__leatherCancelWatchdog = function () { clearTimeout(t); };
   })();
 </script>
-<script type="module" src="/js/leather-reveal.js?v=1783524600"></script>
+<script type="module" src="/js/leather-reveal.js?v=1783525871"></script>
 
 </body>
 
