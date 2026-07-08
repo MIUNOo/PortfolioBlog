@@ -78,7 +78,7 @@
 <link rel="alternate" type="application/rss+xml" href="/index.xml" title="MiunoDev" />
 
 
-<meta name="generator" content="Hugo 0.147.6">
+<meta name="generator" content="Hugo 0.129.0">
 
 
 
@@ -223,6 +223,9 @@
 
 
   
+  
+
+
 
   
 
@@ -253,6 +256,112 @@
   
 
   
+<div id="leather-overlay">
+  <canvas id="leather-canvas" aria-hidden="true"></canvas>
+  <div class="leather-hint" aria-hidden="true">Drag to cut open&ensp;·&ensp;按住拖动划开</div>
+  <div class="leather-progress" aria-hidden="true"><div class="leather-progress-fill"></div></div>
+  <button type="button" class="leather-skip">Skip →</button>
+</div>
+<noscript>
+  <style>#leather-overlay { display: none; }</style>
+</noscript>
+<style>
+  #leather-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overscroll-behavior: none;
+     
+    background: #302014;
+  }
+  #leather-overlay.leather-done {
+    display: none;
+  }
+  #leather-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+    cursor: crosshair;
+  }
+  .leather-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 12vh;
+    transform: translateX(-50%);
+    padding: 0.5em 1.2em;
+    color: rgba(240, 228, 210, 0.85);
+    background: rgba(20, 12, 6, 0.35);
+    border: 1px solid rgba(240, 228, 210, 0.25);
+    border-radius: 2em;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    white-space: nowrap;
+    transition: opacity 0.8s ease;
+  }
+  .leather-progress {
+    position: absolute;
+    left: 50%;
+    bottom: calc(12vh - 1.4em);
+    transform: translateX(-50%);
+    width: 10em;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(240, 228, 210, 0.18);
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
+  .leather-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: rgba(240, 228, 210, 0.75);
+    transition: width 0.3s ease;
+  }
+  .leather-skip {
+    position: absolute;
+    right: 1.2rem;
+    bottom: 1.2rem;
+    padding: 0.35em 1em;
+    color: rgba(240, 228, 210, 0.6);
+    background: rgba(20, 12, 6, 0.3);
+    border: 1px solid rgba(240, 228, 210, 0.25);
+    border-radius: 2em;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .leather-skip:hover,
+  .leather-skip:focus-visible {
+    color: rgba(240, 228, 210, 0.95);
+    border-color: rgba(240, 228, 210, 0.6);
+  }
+  #leather-overlay.unlocked .leather-hint,
+  #leather-overlay.unlocked .leather-progress,
+  #leather-overlay.unlocked .leather-skip,
+  #leather-overlay.hint-faded .leather-hint {
+    opacity: 0;
+  }
+  #leather-overlay.unlocked .leather-skip {
+    pointer-events: none;
+  }
+</style>
+<script>
+  
+
+  (function () {
+    var t = setTimeout(function () {
+      var o = document.getElementById('leather-overlay');
+      if (o && !window.__leatherReady) o.parentNode.removeChild(o);
+    }, 5000);
+    window.__leatherCancelWatchdog = function () { clearTimeout(t); };
+  })();
+</script>
+<script type="module" src="/js/leather-reveal.js"></script>
+
 </body>
 
 </html>
