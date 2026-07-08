@@ -11,6 +11,7 @@ import * as THREE from './vendor/three.module.min.js';
 
 window.__leatherReady = true;
 if (window.__leatherCancelWatchdog) window.__leatherCancelWatchdog();
+console.info('[leather-reveal] v10 — four edges pinned, pre-tensioned hide');
 
 const overlay = document.getElementById('leather-overlay');
 const canvas = document.getElementById('leather-canvas');
@@ -57,6 +58,9 @@ if (overlay && canvas) {
     // slab thickness in world units; at this scale (~2m tall curtain in a
     // 60-unit viewport) 1 unit reads as roughly 3cm of hide
     const THICKNESS = 1.0;
+    // hide is stretched on its frame: rest lengths are shorter than the
+    // initial geometry, so cuts release tension and gape open
+    const PRETENSION = 0.96;
 
     // ----------------------------------------------------------------- state
     let unlocked = false;
@@ -123,7 +127,7 @@ if (overlay && canvas) {
     function addConstraint(a, b, f1, f2, anti) {
       cA.push(a); cB.push(b);
       const dx = px[a] - px[b], dy = py[a] - py[b];
-      cRest.push(Math.sqrt(dx * dx + dy * dy));
+      cRest.push(Math.sqrt(dx * dx + dy * dy) * PRETENSION);
       cAlive.push(1); cFace1.push(f1); cFace2.push(f2); cAnti.push(anti ? 1 : 0);
     }
 
@@ -142,7 +146,8 @@ if (overlay && canvas) {
           py[i] = topY - r * dy;
           pz[i] = 0;
           ox[i] = px[i]; oy[i] = py[i]; oz[i] = pz[i];
-          pinned[i] = r === 0 ? 1 : 0;
+          // hide stretched on a frame: all four edges fixed
+          pinned[i] = (r === 0 || r === ROWS || c === 0 || c === COLS) ? 1 : 0;
         }
       }
 

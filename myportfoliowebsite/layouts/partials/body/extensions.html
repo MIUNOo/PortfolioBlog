@@ -103,5 +103,5 @@
     window.__leatherCancelWatchdog = function () { clearTimeout(t); };
   })();
 </script>
-<script type="module" src="{{ "js/leather-reveal.js" | relURL }}"></script>
+<script type="module" src="{{ "js/leather-reveal.js" | relURL }}?v={{ now.Unix }}"></script>
 {{ end }}
