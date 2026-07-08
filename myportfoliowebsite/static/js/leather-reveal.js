@@ -44,15 +44,18 @@ if (overlay && canvas) {
     const WORLD_H = 60;            // world units visible vertically
     const FOV = 35;
     const STEP = 1 / 60;
-    const ITERATIONS = 4;
-    const GRAVITY = -130;
-    const DAMPING = 0.982;
-    const WIND_AMP = 5;
+    const ITERATIONS = 5;      // stiffer lattice: thick leather barely stretches
+    const GRAVITY = -170;      // heavy drape
+    const DAMPING = 0.975;     // swallows oscillation: mass, not springiness
+    const WIND_AMP = 2.2;      // thick leather barely flutters
     const COV_COLS = 32, COV_ROWS = 20;
 
     const small = Math.min(window.innerWidth, window.innerHeight) < 700;
     const COLS = small ? 44 : 80;
     const ROWS = small ? 30 : 50;
+    // slab thickness in world units; at this scale (~2m tall curtain in a
+    // 60-unit viewport) 1 unit reads as roughly 3cm of hide
+    const THICKNESS = 1.0;
 
     // ----------------------------------------------------------------- state
     let unlocked = false;
@@ -76,19 +79,25 @@ if (overlay && canvas) {
     camera.position.set(0, 0, (WORLD_H / 2) / Math.tan(THREE.MathUtils.degToRad(FOV / 2)));
     camera.updateMatrixWorld();
 
-    scene.add(new THREE.HemisphereLight(0xfff5e6, 0x3a2a1c, 0.9));
-    const keyLight = new THREE.DirectionalLight(0xffeeda, 2.2);
+    scene.add(new THREE.HemisphereLight(0xfff0dc, 0x141008, 0.6));
+    const keyLight = new THREE.DirectionalLight(0xfff0d8, 2.4);
     keyLight.position.set(-45, 65, 90);
     scene.add(keyLight);
+    // warm low fill so the gold flecks glint on the black hide
+    const fillLight = new THREE.DirectionalLight(0xc9a25a, 1.0);
+    fillLight.position.set(55, -25, 65);
+    scene.add(fillLight);
 
     const textures = makeLeatherTextures();
     const material = new THREE.MeshStandardMaterial({
       map: textures.albedo,
       normalMap: textures.normal,
-      roughnessMap: textures.roughness,
+      roughnessMap: textures.orm,   // G channel
+      metalnessMap: textures.orm,   // B channel (gold flecks)
       normalScale: new THREE.Vector2(0.9, 0.9),
       roughness: 1.0,
-      metalness: 0.0,
+      metalness: 1.0,
+      vertexColors: true,           // cut edges get a pale fiber fringe
       side: THREE.DoubleSide,
     });
 
@@ -174,6 +183,9 @@ if (overlay && canvas) {
       }
       indexDirty = true;
       baseW = window.innerWidth; baseH = window.innerHeight;
+      geometry.attributes.color.array.fill(1);
+      geometry.attributes.color.needsUpdate = true;
+      resetDanglers();
 
       // UVs sized for square texels
       const repU = 3.2, repV = repU * clothH / clothW;
@@ -193,6 +205,8 @@ if (overlay && canvas) {
     geometry.setAttribute('position',
       new THREE.BufferAttribute(new Float32Array(N * 3), 3).setUsage(THREE.DynamicDrawUsage));
     geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(N * 2), 2));
+    geometry.setAttribute('color',
+      new THREE.BufferAttribute(new Float32Array(N * 3).fill(1), 3).setUsage(THREE.DynamicDrawUsage));
     const indexArr = new Uint16Array(FACES * 3);
     geometry.setIndex(new THREE.BufferAttribute(indexArr, 1).setUsage(THREE.DynamicDrawUsage));
     geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), 5000);
@@ -200,6 +214,212 @@ if (overlay && canvas) {
     const mesh = new THREE.Mesh(geometry, material);
     mesh.frustumCulled = false;
     scene.add(mesh);
+
+    // --------------------------------------------------- slab thickness
+    // Back face: same lattice pushed inward along vertex normals, darker.
+    // Shares uv/color/normal/index attributes with the front geometry.
+    const backGeo = new THREE.BufferGeometry();
+    backGeo.setAttribute('position',
+      new THREE.BufferAttribute(new Float32Array(N * 3), 3).setUsage(THREE.DynamicDrawUsage));
+    backGeo.setAttribute('uv', geometry.attributes.uv);
+    backGeo.setAttribute('color', geometry.attributes.color);
+    backGeo.setIndex(geometry.index);
+    backGeo.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), 5000);
+    const backMat = new THREE.MeshStandardMaterial({
+      // no albedo map: the underside is raw suede, not finished hide
+      normalMap: textures.normal,
+      color: new THREE.Color(0.26, 0.22, 0.17),
+      roughness: 1.0,
+      metalness: 0.0,
+      vertexColors: true,
+      side: THREE.DoubleSide,
+    });
+    const backMesh = new THREE.Mesh(backGeo, backMat);
+    backMesh.frustumCulled = false;
+    scene.add(backMesh);
+
+    // Cut cross-section: a wall of quads along every boundary edge (outer rim
+    // and torn edges), connecting front to back. Reads as raw leather fiber.
+    const TRI_EDGES = NY * COLS + ROWS * NX + ROWS * COLS; // H + V + diagonal
+    const wallEdges = new Int32Array(TRI_EDGES);
+    let wallCount = 0;
+    const wallGeo = new THREE.BufferGeometry();
+    wallGeo.setAttribute('position',
+      new THREE.BufferAttribute(new Float32Array(TRI_EDGES * 6 * 3), 3)
+        .setUsage(THREE.DynamicDrawUsage));
+    wallGeo.setDrawRange(0, 0);
+    wallGeo.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), 5000);
+    const wallMat = new THREE.MeshBasicMaterial({
+      color: new THREE.Color(0.35, 0.29, 0.22), // pale raw fiber
+      side: THREE.DoubleSide,
+    });
+    const wallMesh = new THREE.Mesh(wallGeo, wallMat);
+    wallMesh.frustumCulled = false;
+    scene.add(wallMesh);
+
+    function rebuildWalls() {
+      wallCount = 0;
+      const M = cA.length;
+      for (let c = 0; c < M; c++) {
+        const f1 = cFace1[c], f2 = cFace2[c];
+        if (f1 < 0 && f2 < 0) continue; // physics-only anti-diagonal
+        const alive = (f1 >= 0 && faceAlive[f1] ? 1 : 0) + (f2 >= 0 && faceAlive[f2] ? 1 : 0);
+        if (alive === 1) wallEdges[wallCount++] = c;
+      }
+      wallGeo.setDrawRange(0, wallCount * 6);
+    }
+
+    function updateThicknessBuffers() {
+      const pos = geometry.attributes.position.array;
+      const nrm = geometry.attributes.normal.array;
+      const bp = backGeo.attributes.position.array;
+      for (let i = 0; i < N * 3; i++) bp[i] = pos[i] - nrm[i] * THICKNESS;
+      backGeo.attributes.position.needsUpdate = true;
+
+      const wp = wallGeo.attributes.position.array;
+      let o = 0;
+      for (let w = 0; w < wallCount; w++) {
+        const c = wallEdges[w];
+        const a3 = cA[c] * 3, b3 = cB[c] * 3;
+        const fax = pos[a3], fay = pos[a3 + 1], faz = pos[a3 + 2];
+        const fbx = pos[b3], fby = pos[b3 + 1], fbz = pos[b3 + 2];
+        const bax = bp[a3], bay = bp[a3 + 1], baz = bp[a3 + 2];
+        const bbx = bp[b3], bby = bp[b3 + 1], bbz = bp[b3 + 2];
+        wp[o++] = fax; wp[o++] = fay; wp[o++] = faz;
+        wp[o++] = fbx; wp[o++] = fby; wp[o++] = fbz;
+        wp[o++] = bbx; wp[o++] = bby; wp[o++] = bbz;
+        wp[o++] = fax; wp[o++] = fay; wp[o++] = faz;
+        wp[o++] = bbx; wp[o++] = bby; wp[o++] = bbz;
+        wp[o++] = bax; wp[o++] = bay; wp[o++] = baz;
+      }
+      wallGeo.attributes.position.needsUpdate = true;
+    }
+
+    // ---------------------------------------------- frayed edges: danglers
+    // Threads and fabric strips spawned along cuts. Each dangler is a short
+    // Verlet rope anchored to a cloth particle on the torn edge; both kinds
+    // render as camera-facing ribbons (threads are just narrower and longer).
+    const D_SEGS = 4;
+    const MAX_DANGLERS = small ? 280 : 620;
+    const danglers = [];
+    let danglerCount = 0;
+
+    const stripGeo = new THREE.BufferGeometry();
+    stripGeo.setAttribute('position',
+      new THREE.BufferAttribute(new Float32Array(MAX_DANGLERS * D_SEGS * 6 * 3), 3)
+        .setUsage(THREE.DynamicDrawUsage));
+    stripGeo.setAttribute('color',
+      new THREE.BufferAttribute(new Float32Array(MAX_DANGLERS * D_SEGS * 6 * 3), 3));
+    stripGeo.setDrawRange(0, 0);
+    stripGeo.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), 5000);
+    const stripMat = new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide });
+    const stripMesh = new THREE.Mesh(stripGeo, stripMat);
+    stripMesh.frustumCulled = false;
+    scene.add(stripMesh);
+
+    const THREAD_COLORS = [
+      [0.85, 0.64, 0.24], [0.85, 0.64, 0.24], [0.70, 0.52, 0.20], // gold thread
+      [0.90, 0.86, 0.78], [0.90, 0.86, 0.78],                     // ivory thread
+      [0.30, 0.26, 0.21],                                          // dark fiber
+    ];
+    const STRIP_COLORS = [
+      [0.22, 0.19, 0.15], [0.14, 0.12, 0.10], [0.62, 0.47, 0.20],
+    ];
+
+    function resetDanglers() {
+      danglers.length = 0;
+      danglerCount = 0;
+      stripGeo.setDrawRange(0, 0);
+    }
+
+    function spawnDangler(anchor, nx, ny) {
+      if (danglerCount >= MAX_DANGLERS) return;
+      const asStrip = Math.random() < 0.28;
+      const slot = danglerCount++;
+      const segLen = asStrip ? 0.5 + Math.random() * 0.55 : 0.7 + Math.random() * 0.9;
+      const width = asStrip ? 0.32 + Math.random() * 0.3 : 0.13 + Math.random() * 0.1;
+      const pts = new Float32Array(D_SEGS * 3);
+      const old = new Float32Array(D_SEGS * 3);
+      const dirZ = 0.3 + Math.random() * 0.4;
+      for (let k = 0; k < D_SEGS; k++) {
+        const f = (k + 1) * segLen;
+        pts[k * 3] = px[anchor] + nx * f + (Math.random() - 0.5) * 0.3;
+        pts[k * 3 + 1] = py[anchor] + ny * f + (Math.random() - 0.5) * 0.3;
+        pts[k * 3 + 2] = pz[anchor] + dirZ * f;
+        old[k * 3] = pts[k * 3]; old[k * 3 + 1] = pts[k * 3 + 1]; old[k * 3 + 2] = pts[k * 3 + 2];
+      }
+      const palette = asStrip ? STRIP_COLORS : THREAD_COLORS;
+      const col = palette[(Math.random() * palette.length) | 0];
+      danglers.push({ slot, anchor, segLen, width, pts, old });
+
+      // per-vertex colors are static: write them once at spawn
+      const ca = stripGeo.attributes.color.array;
+      for (let v = 0; v < D_SEGS * 6; v++) {
+        const o = (slot * D_SEGS * 6 + v) * 3;
+        ca[o] = col[0]; ca[o + 1] = col[1]; ca[o + 2] = col[2];
+      }
+      stripGeo.attributes.color.needsUpdate = true;
+      stripGeo.setDrawRange(0, danglerCount * D_SEGS * 6);
+    }
+
+    function danglerStep(h) {
+      const g = GRAVITY * 0.7 * gravityMult * h * h;
+      const t = simTime;
+      for (let d = 0; d < danglers.length; d++) {
+        const dg = danglers[d];
+        const pts = dg.pts, old = dg.old;
+        for (let k = 0; k < D_SEGS; k++) {
+          const i3 = k * 3;
+          const x = pts[i3], y = pts[i3 + 1], z = pts[i3 + 2];
+          const wz = Math.sin(t * 1.1 + x * 0.2 + d) * 0.6 * h * h;
+          pts[i3] = x + (x - old[i3]) * 0.93;
+          pts[i3 + 1] = y + (y - old[i3 + 1]) * 0.93 + g;
+          pts[i3 + 2] = z + (z - old[i3 + 2]) * 0.93 + wz;
+          old[i3] = x; old[i3 + 1] = y; old[i3 + 2] = z;
+        }
+        // inextensible rope: clamp each point to segLen from its predecessor
+        let ax = px[dg.anchor], ay = py[dg.anchor], az = pz[dg.anchor];
+        for (let k = 0; k < D_SEGS; k++) {
+          const i3 = k * 3;
+          const dx = pts[i3] - ax, dy = pts[i3 + 1] - ay, dz = pts[i3 + 2] - az;
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+          if (dist > dg.segLen) {
+            const s = dg.segLen / dist;
+            pts[i3] = ax + dx * s;
+            pts[i3 + 1] = ay + dy * s;
+            pts[i3 + 2] = az + dz * s;
+          }
+          ax = pts[i3]; ay = pts[i3 + 1]; az = pts[i3 + 2];
+        }
+      }
+    }
+
+    function updateDanglerBuffers() {
+      if (!danglers.length) return;
+      const sp = stripGeo.attributes.position.array;
+      for (let d = 0; d < danglers.length; d++) {
+        const dg = danglers[d];
+        const pts = dg.pts;
+        let ax = px[dg.anchor], ay = py[dg.anchor], az = pz[dg.anchor];
+        let o = dg.slot * D_SEGS * 6 * 3;
+        for (let k = 0; k < D_SEGS; k++) {
+          const bx = pts[k * 3], by = pts[k * 3 + 1], bz = pts[k * 3 + 2];
+          let ex = -(by - ay), ey = bx - ax; // screen-plane perpendicular
+          const el = Math.sqrt(ex * ex + ey * ey) || 1;
+          const w = dg.width * (1 - k / (D_SEGS + 0.5)) / el;
+          ex *= w; ey *= w;
+          // two triangles: (a+,a-,b+), (a-,b-,b+)
+          sp[o++] = ax + ex; sp[o++] = ay + ey; sp[o++] = az;
+          sp[o++] = ax - ex; sp[o++] = ay - ey; sp[o++] = az;
+          sp[o++] = bx + ex; sp[o++] = by + ey; sp[o++] = bz;
+          sp[o++] = ax - ex; sp[o++] = ay - ey; sp[o++] = az;
+          sp[o++] = bx - ex; sp[o++] = by - ey; sp[o++] = bz;
+          sp[o++] = bx + ex; sp[o++] = by + ey; sp[o++] = bz;
+          ax = bx; ay = by; az = bz;
+        }
+      }
+      stripGeo.attributes.position.needsUpdate = true;
+    }
 
     buildCloth();
 
@@ -216,6 +436,8 @@ if (overlay && canvas) {
       indexArr.fill(0, k);
       geometry.index.needsUpdate = true;
       geometry.setDrawRange(0, k);
+      backGeo.setDrawRange(0, k);
+      rebuildWalls();
       indexDirty = false;
     }
 
@@ -228,8 +450,8 @@ if (overlay && canvas) {
       for (let i = 0; i < N; i++) {
         if (pinned[i]) continue;
         const x = px[i], y = py[i], z = pz[i];
-        const wz = (Math.sin(t * 0.8 + x * 0.06 + y * 0.04) +
-                    0.5 * Math.sin(t * 1.7 + y * 0.09)) * WIND_AMP * h2;
+        const wz = (Math.sin(t * 0.45 + x * 0.05 + y * 0.03) +
+                    0.5 * Math.sin(t * 0.9 + y * 0.07)) * WIND_AMP * h2;
         px[i] = x + (x - ox[i]) * DAMPING;
         py[i] = y + (y - oy[i]) * DAMPING + g;
         pz[i] = z + (z - oz[i]) * DAMPING + wz;
@@ -251,6 +473,7 @@ if (overlay && canvas) {
           px[b] -= dx * s * wb; py[b] -= dy * s * wb; pz[b] -= dz * s * wb;
         }
       }
+      danglerStep(h);
     }
 
     function updateGeometry() {
@@ -261,6 +484,8 @@ if (overlay && canvas) {
       }
       geometry.attributes.position.needsUpdate = true;
       geometry.computeVertexNormals();
+      updateThicknessBuffers();
+      updateDanglerBuffers();
     }
 
     // ------------------------------------------------------------ projection
@@ -297,10 +522,24 @@ if (overlay && canvas) {
       const f1 = cFace1[c], f2 = cFace2[c];
       if (f1 >= 0 && faceAlive[f1]) { faceAlive[f1] = 0; indexDirty = true; }
       if (f2 >= 0 && faceAlive[f2]) { faceAlive[f2] = 0; indexDirty = true; }
-      // small pop toward the camera so the slit opens visibly
+      // muted pop toward the camera: thick leather parts, it doesn't flick
       const a = cA[c], b = cB[c];
-      if (!pinned[a]) oz[a] -= 0.5 + Math.random() * 0.3;
-      if (!pinned[b]) oz[b] -= 0.5 + Math.random() * 0.3;
+      if (!pinned[a]) oz[a] -= 0.3 + Math.random() * 0.2;
+      if (!pinned[b]) oz[b] -= 0.3 + Math.random() * 0.2;
+      // torn edge shows pale exposed fiber
+      const colors = geometry.attributes.color.array;
+      colors[a * 3] = 2.6; colors[a * 3 + 1] = 2.2; colors[a * 3 + 2] = 1.6;
+      colors[b * 3] = 2.6; colors[b * 3 + 1] = 2.2; colors[b * 3 + 2] = 1.6;
+      geometry.attributes.color.needsUpdate = true;
+      // fray: often a thread or fabric strip hangs from the cut
+      if (Math.random() < 0.55) {
+        // perpendicular to the severed edge, random side
+        let nx = -(py[b] - py[a]), ny = px[b] - px[a];
+        const nl = Math.sqrt(nx * nx + ny * ny) || 1;
+        const sgn = Math.random() < 0.5 ? 1 : -1;
+        nx = (nx / nl) * sgn; ny = (ny / nl) * sgn;
+        spawnDangler(pinned[a] ? b : (pinned[b] || Math.random() < 0.5 ? a : b), nx, ny);
+      }
     }
 
     function cutSegment(x0, y0, x1, y1) {
@@ -442,8 +681,10 @@ if (overlay && canvas) {
       skipping = true;
       pinned.fill(0);
       gravityMult = 3.5;
-      material.transparent = true;
-      material.needsUpdate = true;
+      for (const m of [material, backMat, wallMat, stripMat]) {
+        m.transparent = true;
+        m.needsUpdate = true;
+      }
       fadeStart = performance.now();
     }
 
@@ -479,9 +720,15 @@ if (overlay && canvas) {
       window.removeEventListener('resize', onResize);
       geometry.dispose();
       material.dispose();
+      backGeo.dispose();
+      backMat.dispose();
+      wallGeo.dispose();
+      wallMat.dispose();
+      stripGeo.dispose();
+      stripMat.dispose();
       textures.albedo.dispose();
       textures.normal.dispose();
-      textures.roughness.dispose();
+      textures.orm.dispose();
       renderer.dispose();
       removeOverlay();
     }
@@ -511,6 +758,9 @@ if (overlay && canvas) {
         const k = (now - fadeStart) / 900;
         if (k >= 1) { dispose(); return; }
         material.opacity = 1 - k;
+        backMat.opacity = 1 - k;
+        wallMat.opacity = 1 - k;
+        stripMat.opacity = 1 - k;
       }
 
       updateGeometry();
@@ -533,6 +783,8 @@ if (overlay && canvas) {
   }
 
   // ------------------------------------------------------ procedural leather
+  // Near-black hide flecked with gold and ivory. Returns { albedo, normal, orm }
+  // where orm packs roughness in G and metalness in B.
   function makeLeatherTextures() {
     const SIZE = 512;
     const n = SIZE * SIZE;
@@ -608,6 +860,33 @@ if (overlay && canvas) {
       }
     }
 
+    // speckle mask: 0 = plain hide, 1 = gold fleck, 2 = ivory fleck
+    // (coordinates wrap so the texture stays tileable)
+    const fleck = new Uint8Array(n);
+    const putFleck = (x, y, v) => {
+      fleck[(((y % SIZE) + SIZE) % SIZE) * SIZE + (((x % SIZE) + SIZE) % SIZE)] = v;
+    };
+    let fseed = 7.7;
+    const frand = () => (fseed = fract(Math.sin(fseed * 12.9898) * 43758.5453));
+    for (let k = 0; k < 950; k++) {
+      const cx = (frand() * SIZE) | 0, cy = (frand() * SIZE) | 0;
+      const s = 1 + ((frand() * 2.4) | 0);
+      for (let dy = 0; dy < s; dy++) {
+        for (let dx = 0; dx < s; dx++) {
+          if (frand() < 0.8) putFleck(cx + dx, cy + dy, 1);
+        }
+      }
+    }
+    for (let k = 0; k < 320; k++) {
+      const cx = (frand() * SIZE) | 0, cy = (frand() * SIZE) | 0;
+      const s = 1 + ((frand() * 1.8) | 0);
+      for (let dy = 0; dy < s; dy++) {
+        for (let dx = 0; dx < s; dx++) {
+          if (frand() < 0.75) putFleck(cx + dx, cy + dy, 2);
+        }
+      }
+    }
+
     function toCanvas(fill) {
       const cv = document.createElement('canvas');
       cv.width = SIZE; cv.height = SIZE;
@@ -618,16 +897,24 @@ if (overlay && canvas) {
       return cv;
     }
 
-    // albedo: warm brown, mottled, darker in creases, speckled pores
+    // albedo: near-black hide, mottled, darker in creases, gold/ivory flecks
     const albedoCv = toCanvas((d) => {
       for (let i = 0; i < n; i++) {
         const t = mottle[i] * 1.06; // ~[0,1]
-        let r = 74 + (126 - 74) * t;
-        let g = 44 + (82 - 44) * t;
-        let b = 26 + (50 - 26) * t;
-        const shade = 0.72 + 0.28 * (1 - creaseM[i]);
-        r *= shade; g *= shade; b *= shade;
-        if (hash2(i % SIZE, (i / SIZE) | 0, 21.7) > 0.985) { r *= 0.82; g *= 0.82; b *= 0.82; }
+        let r, g, b;
+        if (fleck[i] === 1) {
+          r = 168 + t * 44; g = 126 + t * 36; b = 50 + t * 18;   // gold
+        } else if (fleck[i] === 2) {
+          r = 204 + t * 24; g = 196 + t * 24; b = 180 + t * 22;  // ivory
+        } else {
+          // neutral charcoal, matching the site's dark scheme (#212121)
+          r = 14 + (38 - 14) * t;
+          g = 13 + (36 - 13) * t;
+          b = 12 + (33 - 12) * t;
+          const shade = 0.5 + 0.5 * (1 - creaseM[i]);
+          r *= shade; g *= shade; b *= shade;
+          if (hash2(i % SIZE, (i / SIZE) | 0, 21.7) > 0.985) { r *= 0.7; g *= 0.7; b *= 0.7; }
+        }
         d[i * 4] = r; d[i * 4 + 1] = g; d[i * 4 + 2] = b; d[i * 4 + 3] = 255;
       }
     });
@@ -652,11 +939,17 @@ if (overlay && canvas) {
       }
     });
 
-    // roughness (green channel is what MeshStandardMaterial samples)
-    const roughCv = toCanvas((d) => {
+    // packed roughness (G) + metalness (B); gold flecks are shiny and metallic
+    const ormCv = toCanvas((d) => {
       for (let i = 0; i < n; i++) {
-        const v = Math.min(1, 0.68 + mottle[i] * 0.22 + creaseM[i] * 0.10) * 255;
-        d[i * 4] = v; d[i * 4 + 1] = v; d[i * 4 + 2] = v; d[i * 4 + 3] = 255;
+        let rough, metal = 0;
+        if (fleck[i] === 1) { rough = 0.32; metal = 0.75; }
+        else if (fleck[i] === 2) { rough = 0.5; }
+        else rough = Math.min(1, 0.6 + mottle[i] * 0.26 + creaseM[i] * 0.12);
+        d[i * 4] = 0;
+        d[i * 4 + 1] = rough * 255;
+        d[i * 4 + 2] = metal * 255;
+        d[i * 4 + 3] = 255;
       }
     });
 
@@ -672,7 +965,7 @@ if (overlay && canvas) {
     return {
       albedo: mk(albedoCv, true),
       normal: mk(normalCv, false),
-      roughness: mk(roughCv, false),
+      orm: mk(ormCv, false),
     };
   }
 }
