@@ -41,6 +41,7 @@ if (overlay && canvas) {
 
     // ---------------------------------------------------------------- config
     const OPEN_THRESHOLD = 0.35;   // exposed viewport fraction that unlocks links
+    const KNIFE_RADIUS = 8;        // px; the blade is a capsule, not a zero-width line
     const WORLD_H = 60;            // world units visible vertically
     const FOV = 35;
     const STEP = 1 / 60;
@@ -113,17 +114,17 @@ if (overlay && canvas) {
     const faceAlive = new Uint8Array(FACES);
 
     // constraints (plain arrays; ~16k entries)
-    const cA = [], cB = [], cRest = [], cAlive = [], cFace1 = [], cFace2 = [];
+    const cA = [], cB = [], cRest = [], cAlive = [], cFace1 = [], cFace2 = [], cAnti = [];
     let indexDirty = true;
     let baseW = window.innerWidth, baseH = window.innerHeight;
 
     const vid = (r, c) => r * NX + c;
 
-    function addConstraint(a, b, f1, f2) {
+    function addConstraint(a, b, f1, f2, anti) {
       cA.push(a); cB.push(b);
       const dx = px[a] - px[b], dy = py[a] - py[b];
       cRest.push(Math.sqrt(dx * dx + dy * dy));
-      cAlive.push(1); cFace1.push(f1); cFace2.push(f2);
+      cAlive.push(1); cFace1.push(f1); cFace2.push(f2); cAnti.push(anti ? 1 : 0);
     }
 
     function buildCloth() {
@@ -156,7 +157,7 @@ if (overlay && canvas) {
         }
       }
 
-      cA.length = cB.length = cRest.length = cAlive.length = cFace1.length = cFace2.length = 0;
+      cA.length = cB.length = cRest.length = cAlive.length = cFace1.length = cFace2.length = cAnti.length = 0;
       const cellF0 = (r, c) => (r * COLS + c) * 2;
       // horizontal edges
       for (let r = 0; r < NY; r++) {
@@ -174,11 +175,13 @@ if (overlay && canvas) {
             c > 0 ? cellF0(r, c - 1) + 1 : -1);
         }
       }
-      // diagonals (A-D belongs to both triangles of its cell; B-C is physics-only)
+      // diagonals: A-D is a rendered edge of both triangles; the anti-diagonal
+      // B-C is physics-only but still clears the cell's faces when severed,
+      // so any cut crossing the cell interior opens it
       for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
           addConstraint(vid(r, c), vid(r + 1, c + 1), cellF0(r, c), cellF0(r, c) + 1);
-          addConstraint(vid(r, c + 1), vid(r + 1, c), -1, -1);
+          addConstraint(vid(r, c + 1), vid(r + 1, c), cellF0(r, c), cellF0(r, c) + 1, 1);
         }
       }
       indexDirty = true;
@@ -261,12 +264,70 @@ if (overlay && canvas) {
       wallCount = 0;
       const M = cA.length;
       for (let c = 0; c < M; c++) {
+        if (cAnti[c]) continue; // anti-diagonal is not a surface edge
         const f1 = cFace1[c], f2 = cFace2[c];
-        if (f1 < 0 && f2 < 0) continue; // physics-only anti-diagonal
         const alive = (f1 >= 0 && faceAlive[f1] ? 1 : 0) + (f2 >= 0 && faceAlive[f2] ? 1 : 0);
         if (alive === 1) wallEdges[wallCount++] = c;
       }
       wallGeo.setDrawRange(0, wallCount * 6);
+    }
+
+    // ------------------------------------------------------- bare tendons
+    // Constraints that survived a cut but whose faces are all gone are what
+    // invisibly holds a nearly-severed flap. Render them as gold fiber
+    // strands so the player can see — and slice — what still connects.
+    const MAX_TENDONS = TRI_EDGES + ROWS * COLS; // every constraint can render
+    const TENDON_HALF_W = 0.22;
+    const tendonEdges = new Int32Array(MAX_TENDONS);
+    let tendonCount = 0;
+    const tendonGeo = new THREE.BufferGeometry();
+    tendonGeo.setAttribute('position',
+      new THREE.BufferAttribute(new Float32Array(MAX_TENDONS * 6 * 3), 3)
+        .setUsage(THREE.DynamicDrawUsage));
+    tendonGeo.setDrawRange(0, 0);
+    tendonGeo.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), 5000);
+    const tendonMat = new THREE.MeshBasicMaterial({
+      color: new THREE.Color(0.78, 0.6, 0.26), // gold: visible on the hide and on the page
+      side: THREE.DoubleSide,
+    });
+    const tendonMesh = new THREE.Mesh(tendonGeo, tendonMat);
+    tendonMesh.frustumCulled = false;
+    scene.add(tendonMesh);
+
+    function rebuildTendons() {
+      tendonCount = 0;
+      const M = cA.length;
+      for (let c = 0; c < M; c++) {
+        if (!cAlive[c]) continue;
+        const f1 = cFace1[c], f2 = cFace2[c];
+        if ((f1 < 0 || !faceAlive[f1]) && (f2 < 0 || !faceAlive[f2])) {
+          tendonEdges[tendonCount++] = c;
+        }
+      }
+      tendonGeo.setDrawRange(0, tendonCount * 6);
+    }
+
+    function updateTendonBuffer() {
+      if (!tendonCount) return;
+      const pos = geometry.attributes.position.array;
+      const tp = tendonGeo.attributes.position.array;
+      let o = 0;
+      for (let w = 0; w < tendonCount; w++) {
+        const c = tendonEdges[w];
+        const a3 = cA[c] * 3, b3 = cB[c] * 3;
+        const ax = pos[a3], ay = pos[a3 + 1], az = pos[a3 + 2];
+        const bx = pos[b3], by = pos[b3 + 1], bz = pos[b3 + 2];
+        let ex = -(by - ay), ey = bx - ax; // screen-plane perpendicular
+        const el = Math.sqrt(ex * ex + ey * ey) || 1;
+        ex = (ex / el) * TENDON_HALF_W; ey = (ey / el) * TENDON_HALF_W;
+        tp[o++] = ax + ex; tp[o++] = ay + ey; tp[o++] = az;
+        tp[o++] = ax - ex; tp[o++] = ay - ey; tp[o++] = az;
+        tp[o++] = bx + ex; tp[o++] = by + ey; tp[o++] = bz;
+        tp[o++] = ax - ex; tp[o++] = ay - ey; tp[o++] = az;
+        tp[o++] = bx - ex; tp[o++] = by - ey; tp[o++] = bz;
+        tp[o++] = bx + ex; tp[o++] = by + ey; tp[o++] = bz;
+      }
+      tendonGeo.attributes.position.needsUpdate = true;
     }
 
     function updateThicknessBuffers() {
@@ -438,6 +499,7 @@ if (overlay && canvas) {
       geometry.setDrawRange(0, k);
       backGeo.setDrawRange(0, k);
       rebuildWalls();
+      rebuildTendons();
       indexDirty = false;
     }
 
@@ -473,6 +535,14 @@ if (overlay && canvas) {
           px[b] -= dx * s * wb; py[b] -= dy * s * wb; pz[b] -= dz * s * wb;
         }
       }
+      // bare fibers (no faces left) give way one by one — ~0.8s expected life,
+      // so a flap hanging on gold strands visibly rips free on its own
+      for (let c = 0; c < M; c++) {
+        if (!cAlive[c]) continue;
+        const f1 = cFace1[c], f2 = cFace2[c];
+        if ((f1 >= 0 && faceAlive[f1]) || (f2 >= 0 && faceAlive[f2])) continue;
+        if (Math.random() < 0.02) killConstraint(c);
+      }
       danglerStep(h);
     }
 
@@ -485,6 +555,7 @@ if (overlay && canvas) {
       geometry.attributes.position.needsUpdate = true;
       geometry.computeVertexNormals();
       updateThicknessBuffers();
+      updateTendonBuffer();
       updateDanglerBuffers();
     }
 
@@ -517,11 +588,31 @@ if (overlay && canvas) {
       return o1 * o2 < 0 && o3 * o4 < 0;
     }
 
+    function pointSegDist2(x, y, ax, ay, bx, by) {
+      const dx = bx - ax, dy = by - ay;
+      const len2 = dx * dx + dy * dy;
+      let t = len2 ? ((x - ax) * dx + (y - ay) * dy) / len2 : 0;
+      if (t < 0) t = 0; else if (t > 1) t = 1;
+      const ex = ax + dx * t - x, ey = ay + dy * t - y;
+      return ex * ex + ey * ey;
+    }
+
+    // min distance² between two non-intersecting segments
+    function segSegDist2(ax, ay, bx, by, cx, cy, dx, dy) {
+      return Math.min(
+        pointSegDist2(ax, ay, cx, cy, dx, dy),
+        pointSegDist2(bx, by, cx, cy, dx, dy),
+        pointSegDist2(cx, cy, ax, ay, bx, by),
+        pointSegDist2(dx, dy, ax, ay, bx, by),
+      );
+    }
+
     function killConstraint(c) {
       cAlive[c] = 0;
       const f1 = cFace1[c], f2 = cFace2[c];
-      if (f1 >= 0 && faceAlive[f1]) { faceAlive[f1] = 0; indexDirty = true; }
-      if (f2 >= 0 && faceAlive[f2]) { faceAlive[f2] = 0; indexDirty = true; }
+      if (f1 >= 0 && faceAlive[f1]) faceAlive[f1] = 0;
+      if (f2 >= 0 && faceAlive[f2]) faceAlive[f2] = 0;
+      indexDirty = true; // faces and/or the visible tendon list changed
       // muted pop toward the camera: thick leather parts, it doesn't flick
       const a = cA[c], b = cB[c];
       if (!pinned[a]) oz[a] -= 0.3 + Math.random() * 0.2;
@@ -544,8 +635,9 @@ if (overlay && canvas) {
 
     function cutSegment(x0, y0, x1, y1) {
       projectAll();
-      const minX = Math.min(x0, x1) - 1, maxX = Math.max(x0, x1) + 1;
-      const minY = Math.min(y0, y1) - 1, maxY = Math.max(y0, y1) + 1;
+      const r = KNIFE_RADIUS, r2 = r * r;
+      const minX = Math.min(x0, x1) - r, maxX = Math.max(x0, x1) + r;
+      const minY = Math.min(y0, y1) - r, maxY = Math.max(y0, y1) + r;
       const M = cA.length;
       let cutAny = false;
       for (let c = 0; c < M; c++) {
@@ -554,7 +646,8 @@ if (overlay && canvas) {
         const ax = scrX[a], ay = scrY[a], bx = scrX[b], by = scrY[b];
         if ((ax < minX && bx < minX) || (ax > maxX && bx > maxX) ||
             (ay < minY && by < minY) || (ay > maxY && by > maxY)) continue;
-        if (segmentsIntersect(ax, ay, bx, by, x0, y0, x1, y1)) {
+        if (segmentsIntersect(ax, ay, bx, by, x0, y0, x1, y1) ||
+            segSegDist2(ax, ay, bx, by, x0, y0, x1, y1) < r2) {
           killConstraint(c);
           cutAny = true;
         }
@@ -681,7 +774,7 @@ if (overlay && canvas) {
       skipping = true;
       pinned.fill(0);
       gravityMult = 3.5;
-      for (const m of [material, backMat, wallMat, stripMat]) {
+      for (const m of [material, backMat, wallMat, stripMat, tendonMat]) {
         m.transparent = true;
         m.needsUpdate = true;
       }
@@ -724,6 +817,8 @@ if (overlay && canvas) {
       backMat.dispose();
       wallGeo.dispose();
       wallMat.dispose();
+      tendonGeo.dispose();
+      tendonMat.dispose();
       stripGeo.dispose();
       stripMat.dispose();
       textures.albedo.dispose();
@@ -761,6 +856,7 @@ if (overlay && canvas) {
         backMat.opacity = 1 - k;
         wallMat.opacity = 1 - k;
         stripMat.opacity = 1 - k;
+        tendonMat.opacity = 1 - k;
       }
 
       updateGeometry();
